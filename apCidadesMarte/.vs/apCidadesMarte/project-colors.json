@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "66fa02e8-38e6-425f-a72f-0829c76f23bf": {
+      "ProjectGuid": "66fa02e8-38e6-425f-a72f-0829c76f23bf",
+      "DisplayName": "apCidadesMarte",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Arquivos Diversos",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}
