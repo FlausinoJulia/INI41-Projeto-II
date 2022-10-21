@@ -78,12 +78,11 @@ namespace apCidadesMarte
 
                     // lemos cada um dos campos do registro separadamente
                     char[] umNome = new char[tamanhoNome];   // criamos um vetor de 15 caracteres 
-                    umNome = arquivo.ReadChars(tamanhoNome); // lêmos 15 caracteres do arquivo e guardamosno vertor umNome
+                    umNome = arquivo.ReadChars(tamanhoNome); // lemos 15 caracteres do arquivo e guardamosno vetor umNome
                     string nomeLido = "";
                     for (int i = 0; i < tamanhoNome; i++) // montamos uma variável string com os caracteres do vetor umNome
                         nomeLido += umNome[i];
                     Nome = nomeLido;                      // armazenamos a string montada acima no campo nome da Cidade
-                    MessageBox.Show(Nome);
 
                     X = arquivo.ReadDouble();     // lê um double de 8 bytes
                     Y = arquivo.ReadDouble();     // lê um double de 8 bytes

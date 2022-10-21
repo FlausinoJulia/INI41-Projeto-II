@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Windows.Forms;
 
 namespace apCidadesMarte
 {
@@ -12,61 +10,83 @@ namespace apCidadesMarte
         private string cidOrigem, cidDestino;
         private int distancia, tempo, custo; 
 
-            const int tamanhoRegistro = tamanhoNome + // tamanho do nome
-                                    sizeof(double) + // tamanho da coordenada x
-                                    sizeof(double);  // tamanho da coordenada y
+        const int tamanhoRegistro = tamanhoNome +  // tamanho do nome da cidade de origem
+                                    tamanhoNome +  // tamanho do nome da cidade de destino
+                                    sizeof(int) +
+                                    sizeof(int) + 
+                                    sizeof(int);      
 
-        public Cidade() // construtor default (sem parametros)
+        public Caminho() // construtor default (sem parametros)
         {
-            this.Nome = "";
-            this.X = 0.0;
-            this.Y = 0.0;
-        }
-        public Cidade(string nome, double x, double y) // construtor parametrizado
-        {
-            this.Nome = nome;
-            this.X = x;
-            this.Y = y;
+            this.CidOrigem  = "";
+            this.CidDestino = "";
+            this.Distancia = 0;
+            this.Tempo = 0;
+            this.Custo = 0;
         }
 
-        public Cidade(string nome) // construtor que recebe só a chave (nome) como parâmetro
+        public Caminho(string origem, string destino, int dist, int temp, int custo) // construtor parametrizado
         {
-            this.Nome = nome;
+            this.CidOrigem  = origem;
+            this.CidDestino = destino;
+            this.Distancia  = dist;
+            this.Tempo      = temp;
+            this.Custo      = custo;
+        }
+
+        public Caminho(string origem, string destino) // construtor que recebe só a chave (nome) como parâmetro
+        {
+            this.CidOrigem  = origem;
+            this.CidDestino = destino;
         }
 
         public int TamanhoRegistro => tamanhoRegistro;
-        public string Nome
-        {
-            get => nome;
-            // o nome deve ter exatamente 15 caracteres, portanto,
-            // se o value possuir MENOS que 15 caracteres, completamos o nome com espaços em branco
-            // se o value possuir MAIS  que 15 caracteres, nome recebe os 15 primeiros chars de value
-            set => nome = value.PadRight(tamanhoNome, ' ').Substring(0, tamanhoNome);
-        }
-        public double X { get => x; set => x = value; }
-        public double Y { get => y; set => y = value; }
 
-        public int CompareTo(Cidade outraCidade)
+        public string CidOrigem 
+        { 
+            get => cidOrigem;
+            set => cidOrigem = value.PadRight(tamanhoNome, ' ').Substring(0, tamanhoNome);
+        }
+
+        public string CidDestino 
+        { 
+            get => cidDestino;
+            set => cidDestino = value.PadRight(tamanhoNome, ' ').Substring(0, tamanhoNome); 
+        }
+
+        public int Distancia { get => distancia; set => distancia = value; }
+
+        public int Tempo { get => tempo; set => tempo = value; }
+
+        public int Custo { get => custo; set => custo = value; }
+
+        public int CompareTo(Caminho outroCaminho)
         {
-            return nome.CompareTo(outraCidade.Nome);
+            return cidOrigem.CompareTo(outroCaminho.CidOrigem) + cidDestino.CompareTo(outroCaminho.CidDestino);
         }
 
         public override string ToString()
         {
-            return Nome;
+            return CidOrigem + CidDestino;
         }
 
         public void GravarRegistro(BinaryWriter arquivo)
         {
             if (arquivo != null)
             {
-                char[] umNome = new char[tamanhoNome];  // cria vetor de char para armazenar o nome
+                char[] origem = new char[tamanhoNome];  // cria vetor de char para armazenar o nome da cidOrigem
                 for (int i = 0; i < tamanhoNome; i++)
-                    umNome[i] = nome[i];                // copia os caracteres do campo nome para o vetor de char
-                arquivo.Write(umNome);                  // grava o vetor de char no arquivo (com tamanho 15)
+                    origem[i] = cidOrigem[i];           // copia os caracteres do campo cidOrigem para o vetor de char
+                arquivo.Write(origem);                  // grava o vetor de char no arquivo (com tamanho 15)
 
-                arquivo.Write(X);                       // escreve os 8 bytes da coordenada X no arquivo 
-                arquivo.Write(Y);                       // escreve os 8 bytes da coordenada Y no arquivo 
+                char[] destino = new char[tamanhoNome]; // cria vetor de char para armazenar o nome da cidDestino
+                for (int i = 0; i < tamanhoNome; i++)
+                    destino[i] = cidOrigem[i];          // copia os caracteres do campo cidDestino para o vetor de char
+                arquivo.Write(destino);                 // grava o vetor de char no arquivo (com tamanho 15)
+
+                arquivo.Write(Distancia);               // escreve os 4 bytes da distancia da origem ao destino no arquivo
+                arquivo.Write(Tempo);                   // escreve os 4 bytes do tempo de percurso no arquivo
+                arquivo.Write(Custo);                   // escreve os 4 bytes do custo do percurso no arquivo 
             }
         }
 
@@ -79,16 +99,23 @@ namespace apCidadesMarte
                     arquivo.BaseStream.Seek(qtosBytes, SeekOrigin.Begin);  // posicionamento no byte inicial do registro
 
                     // lemos cada um dos campos do registro separadamente
-                    char[] umNome = new char[tamanhoNome];   // criamos um vetor de 15 caracteres 
-                    umNome = arquivo.ReadChars(tamanhoNome); // lêmos 15 caracteres do arquivo e guardamosno vertor umNome
+                    char[] origem = new char[tamanhoNome];   // criamos um vetor de 15 caracteres 
+                    origem = arquivo.ReadChars(tamanhoNome); // lemos 15 caracteres do arquivo e guardamosno vetor origem
                     string nomeLido = "";
-                    for (int i = 0; i < tamanhoNome; i++) // montamos uma variável string com os caracteres do vetor umNome
-                        nomeLido += umNome[i];
-                    Nome = nomeLido;                      // armazenamos a string montada acima no campo nome da Cidade
-                    MessageBox.Show(Nome);
+                    for (int i = 0; i < tamanhoNome; i++)    // montamos uma variável string com os caracteres do vetor origem
+                        nomeLido += origem[i];
+                    CidOrigem = nomeLido;                    // armazenamos a string montada acima no campo cidOrigem
 
-                    X = arquivo.ReadDouble();     // lê um double de 8 bytes
-                    Y = arquivo.ReadDouble();     // lê um double de 8 bytes
+                    char[] destino = new char[tamanhoNome];  // criamos um vetor de 15 caracteres 
+                    destino = arquivo.ReadChars(tamanhoNome);// lemos 15 caracteres do arquivo e guardamosno vetor destino
+                    nomeLido = "";
+                    for (int i = 0; i < tamanhoNome; i++)    // montamos uma variável string com os caracteres do vetor destino
+                        nomeLido += destino[i]; 
+                    CidOrigem = nomeLido;                    // armazenamos a string montada acima no campo cidDestino
+
+                    Distancia = arquivo.ReadInt32(); // lê um int de 4 bytes
+                    Tempo = arquivo.ReadInt32();     // lê um int de 4 bytes
+                    Custo = arquivo.ReadInt32();     // lê um int de 4 bytes
                 }
                 catch (Exception e)
                 {
@@ -96,5 +123,4 @@ namespace apCidadesMarte
                 }
         }
     }
-}
 }

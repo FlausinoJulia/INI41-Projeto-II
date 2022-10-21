@@ -30,7 +30,7 @@ namespace apCidadesMarte
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCidadesMarte));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCidadesMarte = new System.Windows.Forms.TabControl();
             this.tpCaminhos = new System.Windows.Forms.TabPage();
             this.ssMensagem = new System.Windows.Forms.StatusStrip();
@@ -180,7 +180,7 @@ namespace apCidadesMarte
             this.pbMapa.Image = ((System.Drawing.Image)(resources.GetObject("pbMapa.Image")));
             this.pbMapa.Location = new System.Drawing.Point(431, 123);
             this.pbMapa.Name = "pbMapa";
-            this.pbMapa.Size = new System.Drawing.Size(758, 502);
+            this.pbMapa.Size = new System.Drawing.Size(758, 499);
             this.pbMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbMapa.TabIndex = 12;
             this.pbMapa.TabStop = false;
@@ -347,7 +347,7 @@ namespace apCidadesMarte
             this.groupBox2.Controls.Add(this.dgvCaminhos);
             this.groupBox2.Location = new System.Drawing.Point(3, 123);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(422, 508);
+            this.groupBox2.Size = new System.Drawing.Size(422, 505);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Caminhos";
@@ -464,9 +464,9 @@ namespace apCidadesMarte
             this.Custo});
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 181);
             this.dgvCaminhos.Name = "dgvCaminhos";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvCaminhos.Size = new System.Drawing.Size(406, 321);
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvCaminhos.Size = new System.Drawing.Size(406, 315);
             this.dgvCaminhos.TabIndex = 11;
             // 
             // Destino
@@ -610,7 +610,7 @@ namespace apCidadesMarte
             this.tpArvore.Location = new System.Drawing.Point(4, 29);
             this.tpArvore.Name = "tpArvore";
             this.tpArvore.Padding = new System.Windows.Forms.Padding(3);
-            this.tpArvore.Size = new System.Drawing.Size(1192, 659);
+            this.tpArvore.Size = new System.Drawing.Size(1192, 662);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Visualizar Cidades";
             // 
@@ -621,7 +621,7 @@ namespace apCidadesMarte
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbArvore.Location = new System.Drawing.Point(8, 6);
             this.pbArvore.Name = "pbArvore";
-            this.pbArvore.Size = new System.Drawing.Size(1176, 644);
+            this.pbArvore.Size = new System.Drawing.Size(1176, 647);
             this.pbArvore.TabIndex = 0;
             this.pbArvore.TabStop = false;
             // 
