@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Drawing;
+using System.Threading;
 
 namespace apCidadesMarte
 {
@@ -296,7 +299,10 @@ namespace apCidadesMarte
             achou = false;
             return EscreverAntecessores(Raiz, procurado);
         }
-        public void DesenharArvore(bool primeiraVez, NoArvore<Funcionario> raiz,
+
+        //anteriormente:         public void DesenharArvore(bool primeiraVez, NoArvore<Funcionario> raiz,
+        // Cidade ou Caminho? ==> deixei caminho
+        public void DesenharArvore(bool primeiraVez, NoArvore<Caminho> raiz,
                                   int x, int y, double angulo, double incremento,
                                   double comprimento, Graphics g)
         {
