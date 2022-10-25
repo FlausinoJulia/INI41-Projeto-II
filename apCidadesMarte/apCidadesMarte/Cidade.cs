@@ -8,23 +8,26 @@ namespace apCidadesMarte
     {
         private const byte tamanhoNome = 15;
         private string nome;
-        private double x, y;
+        private decimal x, y;
+        public ListaSimples<Caminho> caminhos;
 
-        const int tamanhoRegistro = tamanhoNome    + // tamanho do nome
-                                    sizeof(double) + // tamanho da coordenada x
-                                    sizeof(double);  // tamanho da coordenada y
+        const int tamanhoRegistro = tamanhoNome     + // tamanho do nome
+                                    sizeof(decimal) + // tamanho da coordenada x
+                                    sizeof(decimal);  // tamanho da coordenada y
 
         public Cidade() // construtor default (sem parametros)
         {
             this.Nome = "";
-            this.X = 0.0;
-            this.Y = 0.0;
+            this.X = 0;
+            this.Y = 0;
+            this.caminhos = new ListaSimples<Caminho>();
         }
-        public Cidade(string nome, double x, double y) // construtor parametrizado
+        public Cidade(string nome, decimal x, decimal y, ListaSimples<Caminho> caminhos) // construtor parametrizado
         {
             this.Nome = nome;
             this.X    = x;
             this.Y    = y;
+            this.caminhos = caminhos;
         }
 
         public Cidade(string nome) // construtor que recebe só a chave (nome) como parâmetro
@@ -41,8 +44,8 @@ namespace apCidadesMarte
             // se o value possuir MAIS  que 15 caracteres, nome recebe os 15 primeiros chars de value
             set => nome = value.PadRight(tamanhoNome,' ').Substring(0,tamanhoNome);
         }
-        public double X { get => x; set => x = value; }
-        public double Y { get => y; set => y = value; }
+        public decimal X { get => x; set => x = value; }
+        public decimal Y { get => y; set => y = value; }
 
         public int CompareTo(Cidade outraCidade)
         {
@@ -63,8 +66,8 @@ namespace apCidadesMarte
                     umNome[i] = nome[i];                // copia os caracteres do campo nome para o vetor de char
                 arquivo.Write(umNome);                  // grava o vetor de char no arquivo (com tamanho 15)
 
-                arquivo.Write(X);                       // escreve os 8 bytes da coordenada X no arquivo 
-                arquivo.Write(Y);                       // escreve os 8 bytes da coordenada Y no arquivo 
+                arquivo.Write(X);                       // escreve os 16 bytes da coordenada X no arquivo 
+                arquivo.Write(Y);                       // escreve os 16 bytes da coordenada Y no arquivo 
             }
         }
 
@@ -84,8 +87,8 @@ namespace apCidadesMarte
                         nomeLido += umNome[i];
                     Nome = nomeLido;                      // armazenamos a string montada acima no campo nome da Cidade
 
-                    X = arquivo.ReadDouble();     // lê um double de 8 bytes
-                    Y = arquivo.ReadDouble();     // lê um double de 8 bytes
+                    X = arquivo.ReadDecimal();     // lê um decimal de 16 bytes
+                    Y = arquivo.ReadDecimal();     // lê um decimal de 16 bytes
                 }
                 catch (Exception e)
                 {

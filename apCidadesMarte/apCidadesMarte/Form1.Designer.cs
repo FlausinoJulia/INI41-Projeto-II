@@ -30,7 +30,7 @@ namespace apCidadesMarte
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCidadesMarte));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCidadesMarte = new System.Windows.Forms.TabControl();
             this.tpCaminhos = new System.Windows.Forms.TabPage();
             this.ssMensagem = new System.Windows.Forms.StatusStrip();
@@ -77,13 +77,12 @@ namespace apCidadesMarte
             this.udY = new System.Windows.Forms.NumericUpDown();
             this.udX = new System.Windows.Forms.NumericUpDown();
             this.txtNome = new System.Windows.Forms.TextBox();
-            this.txtCodigo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tpArvore = new System.Windows.Forms.TabPage();
             this.pbArvore = new System.Windows.Forms.PictureBox();
+            this.dlgAbrirCidades = new System.Windows.Forms.OpenFileDialog();
             this.tcCidadesMarte.SuspendLayout();
             this.tpCaminhos.SuspendLayout();
             this.ssMensagem.SuspendLayout();
@@ -274,6 +273,7 @@ namespace apCidadesMarte
             this.btnIncluirCidade.Size = new System.Drawing.Size(44, 39);
             this.btnIncluirCidade.Text = "Incluir";
             this.btnIncluirCidade.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnIncluirCidade.Click += new System.EventHandler(this.btnIncluirCidade_Click);
             // 
             // btnCancelar
             // 
@@ -464,8 +464,8 @@ namespace apCidadesMarte
             this.Custo});
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 181);
             this.dgvCaminhos.Name = "dgvCaminhos";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvCaminhos.Size = new System.Drawing.Size(406, 315);
             this.dgvCaminhos.TabIndex = 11;
             // 
@@ -502,11 +502,9 @@ namespace apCidadesMarte
             this.groupBox1.Controls.Add(this.udY);
             this.groupBox1.Controls.Add(this.udX);
             this.groupBox1.Controls.Add(this.txtNome);
-            this.groupBox1.Controls.Add(this.txtCodigo);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(3, 48);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1186, 74);
@@ -518,7 +516,7 @@ namespace apCidadesMarte
             // 
             this.udY.DecimalPlaces = 5;
             this.udY.Enabled = false;
-            this.udY.Location = new System.Drawing.Point(905, 29);
+            this.udY.Location = new System.Drawing.Point(672, 29);
             this.udY.Maximum = new decimal(new int[] {
             1,
             0,
@@ -538,7 +536,7 @@ namespace apCidadesMarte
             0,
             0,
             327680});
-            this.udX.Location = new System.Drawing.Point(661, 29);
+            this.udX.Location = new System.Drawing.Point(428, 29);
             this.udX.Maximum = new decimal(new int[] {
             1,
             0,
@@ -551,26 +549,17 @@ namespace apCidadesMarte
             // 
             // txtNome
             // 
-            this.txtNome.Location = new System.Drawing.Point(136, 28);
+            this.txtNome.Location = new System.Drawing.Point(146, 28);
             this.txtNome.MaxLength = 15;
             this.txtNome.Name = "txtNome";
             this.txtNome.ReadOnly = true;
             this.txtNome.Size = new System.Drawing.Size(158, 26);
             this.txtNome.TabIndex = 13;
             // 
-            // txtCodigo
-            // 
-            this.txtCodigo.Location = new System.Drawing.Point(379, 28);
-            this.txtCodigo.MaxLength = 3;
-            this.txtCodigo.Name = "txtCodigo";
-            this.txtCodigo.ReadOnly = true;
-            this.txtCodigo.Size = new System.Drawing.Size(158, 26);
-            this.txtCodigo.TabIndex = 12;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(787, 31);
+            this.label4.Location = new System.Drawing.Point(554, 31);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 20);
             this.label4.TabIndex = 11;
@@ -579,7 +568,7 @@ namespace apCidadesMarte
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(543, 31);
+            this.label3.Location = new System.Drawing.Point(310, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 20);
             this.label3.TabIndex = 10;
@@ -594,15 +583,6 @@ namespace apCidadesMarte
             this.label2.TabIndex = 9;
             this.label2.Text = "Nome da cidade:";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(310, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 20);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Código:";
-            // 
             // tpArvore
             // 
             this.tpArvore.BackColor = System.Drawing.SystemColors.ActiveBorder;
@@ -610,7 +590,7 @@ namespace apCidadesMarte
             this.tpArvore.Location = new System.Drawing.Point(4, 29);
             this.tpArvore.Name = "tpArvore";
             this.tpArvore.Padding = new System.Windows.Forms.Padding(3);
-            this.tpArvore.Size = new System.Drawing.Size(1192, 662);
+            this.tpArvore.Size = new System.Drawing.Size(1192, 659);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Visualizar Cidades";
             // 
@@ -625,6 +605,10 @@ namespace apCidadesMarte
             this.pbArvore.TabIndex = 0;
             this.pbArvore.TabStop = false;
             // 
+            // dlgAbrirCidades
+            // 
+            this.dlgAbrirCidades.FileName = "openFileDialog1";
+            // 
             // frmCidadesMarte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -637,6 +621,7 @@ namespace apCidadesMarte
             this.MinimumSize = new System.Drawing.Size(1100, 650);
             this.Name = "frmCidadesMarte";
             this.Text = "Caminhos entre Cidades de Marte";
+            this.Load += new System.EventHandler(this.frmCidadesMarte_Load);
             this.tcCidadesMarte.ResumeLayout(false);
             this.tpCaminhos.ResumeLayout(false);
             this.tpCaminhos.PerformLayout();
@@ -666,11 +651,9 @@ namespace apCidadesMarte
         private System.Windows.Forms.NumericUpDown udY;
         private System.Windows.Forms.NumericUpDown udX;
         private System.Windows.Forms.TextBox txtNome;
-        private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tpArvore;
         private System.Windows.Forms.StatusStrip ssMensagem;
         private System.Windows.Forms.ToolStripStatusLabel sslCidades;
@@ -713,6 +696,7 @@ namespace apCidadesMarte
         private System.Windows.Forms.DataGridViewTextBoxColumn Tempo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Custo;
         private System.Windows.Forms.PictureBox pbArvore;
+        private System.Windows.Forms.OpenFileDialog dlgAbrirCidades;
     }
 }
 

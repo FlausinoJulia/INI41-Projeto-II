@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -85,7 +88,6 @@ namespace apCidadesMarte
         }
 
         // Exercícios iniciais
-
         private bool Eq(NoArvore<Dado> atualA,
                         NoArvore<Dado> atualB)
         {
@@ -93,7 +95,7 @@ namespace apCidadesMarte
                 return true;
 
             if ((atualA == null) != (atualB == null)) // apenas um dos nós é
-                return false; // uma é nulo e outra não é
+                return false; // um é nulo e outro não é
 
             // os dois nós não são nulos
             if (atualA.Info.CompareTo(atualB.Info) != 0)
@@ -296,9 +298,9 @@ namespace apCidadesMarte
             achou = false;
             return EscreverAntecessores(Raiz, procurado);
         }
-        public void DesenharArvore(bool primeiraVez, NoArvore<Funcionario> raiz,
-                                  int x, int y, double angulo, double incremento,
-                                  double comprimento, Graphics g)
+        public void DesenharArvore (bool primeiraVez, NoArvore<Dado> raiz,
+                                    int x, int y, double angulo, double incremento,
+                                    double comprimento, Graphics g)
         {
             int xf, yf;
             if (raiz != null)
@@ -431,7 +433,7 @@ namespace apCidadesMarte
                     long meio = (inicio + fim) / 2;
 
                     dado = new Dado();       // cria um objeto para armazenar os dados
-                    dado.LerRegistro(arquivo, meio); // 
+                    dado.LerRegistro(arquivo, meio); 
                     atual = new NoArvore<Dado>(dado);
                     var novoEsq = atual.Esq;
                     Particionar(inicio, meio - 1, ref novoEsq);   // Particiona à esquerda 
