@@ -15,6 +15,8 @@ namespace apCidadesMarte
     {
         ArvoreDeBusca<Cidade> arvoreCidades;
         ArvoreDeBusca<Caminho> arvoreCaminhos;
+        BinaryWriter arquivo = new BinaryWriter(new MemoryStream());
+
         public frmCidadesMarte()
         {
             InitializeComponent();
@@ -42,90 +44,40 @@ namespace apCidadesMarte
 
         private void btnIncluirCidade_Click(object sender, EventArgs e)
         {
-            if (dlgAbrirCidades.ShowDialog() == DialogResult.OK)
+            try
             {
-                if (txtNome.Text == "")
-                    MessageBox.Show("Preencha todos os campos para incluir a cidade!");
-                else
-                {
-                    string nome = txtNome.Text;
-                    decimal x = udX.Value, y = udY.Value;
-                    ListaSimples<Caminho> caminhos = new ListaSimples<Caminho>();
-                    Cidade cidadeNova = new Cidade(nome, x, y, caminhos);
-
-                    arvoreCidades.IncluirNovoRegistro(cidadeNova);
-                }
-                arvoreCidades.GravarArquivoDeRegistros(dlgAbrirCidades.FileName);
+                ListaSimples<Caminho> caminhos = new ListaSimples<Caminho>();
+                var cidade = new Cidade(txtNome.Text, udX.Value, udY.Value, caminhos);
+                arvoreCidades.InserirBalanceado(cidade);
+                pbArvore.Invalidate();
             }
-            
+            catch (Exception mens)
+            {
+                MessageBox.Show(mens.Message);
+            }
         }
 
         private void btnExcluirCidade_Click(object sender, EventArgs e)
         {
-            if (dlgAbrirCidades.ShowDialog() == DialogResult.OK)
+            if (txtNome.Text != null)
             {
-                if (txtNome.Text == "")
-                {
-                    MessageBox.Show("Digite o nome da cidade que deseja excluir!");
-                    txtNome.Focus();
-                }
-                 
+                var cidade = new Cidade(txtNome.Text);
+                if (arvoreCidades.ApagarNo(cidade))
+                    pbArvore.Invalidate();
                 else
-                {
-                    string nomeCidade = txtNome.Text;
-                    Cidade cidade = new Cidade();
-                    cidade.Nome = nomeCidade;
-
-                    if (!arvoreCidades.Existe(cidade))
-                    {
-                        MessageBox.Show("Essa cidade não existe!");
-                    }
-                    else
-                    {
-                        Cidade cidadeAExcluir = arvoreCidades.Atual.Info;
-                        arvoreCidades.ApagarNo(arvoreCidades.Atual.Info); // ApagarNo ou Excluir???
-
-                        DesabilitarCampos();
-                        AtualizarTela();
-                        AtualizarInfos();
-
-                        btnSalvar.Enabled = true;
-                        btnCancelar.Enabled = true;
-                        btnExcluirCidade.Enabled = true;
-                    }
-
-                }
+                    MessageBox.Show("Matrícula não existente!");
             }
         }
 
         private void btnExcluirCaminho_Click(object sender, EventArgs e)
         {
-            if (txtDestino.Text == "")
+            if (txtDestino.Text != null)
             {
-                MessageBox.Show("Digite o caminho que deseja excluir!");
-                txtDestino.Focus();
-            }
-
-            else
-            {
-                string nomeCaminho = txtDestino.Text;
-                Caminho caminho = new Caminho();
-                caminho.CidDestino = nomeCaminho;
-
-                if (!arvoreCaminhos.Existe(caminho))
-                {
-                    MessageBox.Show("Esse caminho não existe!");
-                }
+                var caminho = new Caminho(txtOrigem.Text, txtDestino.Text);
+                if (arvoreCaminhos.ApagarNo(caminho))
+                    pbArvore.Invalidate();
                 else
-                {
-                    Caminho caminhoAExcluir = arvoreCaminhos.Atual.Info;
-                    arvoreCaminhos.ApagarNo(arvoreCaminhos.Atual.Info);
-
-                    btnSalvar.Enabled = true;
-                    btnCancelar.Enabled = true;
-                    btnExcluirCidade.Enabled = true;
-                }
-
+                    MessageBox.Show("Matrícula não existente!");
             }
         }
 
@@ -173,29 +125,38 @@ namespace apCidadesMarte
 
         private void pbMapa_Paint(object sender, PaintEventArgs e)
         {
-            int posicaoDado = arvoreCidades.;
-
-            /*
-            int posicaoDado = listaCidades.PosicaoAtual;
-            listaCidades.PosicionarNoPrimeiro();
-            Font fonte = new Font("Arial", 10);
-
-            while (listaCidades.DadoAtual() != null)
+            if (arvoreCidades != null)
             {
-                Cidade cidade = listaCidades.DadoAtual();
-
-                int x = (int)(cidade.X * pbMapa.Width);
-                int y = (int)(cidade.Y * pbMapa.Height);
-
-                e.Graphics.DrawEllipse(Pens.Black, new Rectangle(x, y, 6, 6));
-                e.Graphics.FillEllipse(Brushes.Black, new Rectangle(x, y, 6, 6));
-                e.Graphics.DrawString(cidade.Nome, fonte, Brushes.Black, x - 20, y + 10);
-
-                listaCidades.AvancarPosicao();
+                Graphics g = e.Graphics;
+                arvoreCidades.DesenharArvore(true, arvoreCidades.Raiz, (int)pbArvore.Width / 2, 0,
+                  Math.PI / 2, Math.PI / 2.5, 300, g);
             }
+        }
 
-            listaCidades.PosicionarEm(posicaoDado);
-            */
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            if (nomeDoArquivo != "" || nomeDoArquivo != " " || nomeDoArquivo != null)
+                listaCidades.GravarDados(nomeDoArquivo);
+            Close();
+        }
+
+        private void btnIncluirCaminho_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var caminho = new Caminho(txtOrigem.Text, txtDestino.Text);
+                arvoreCaminhos.InserirBalanceado(caminho);
+                pbArvore.Invalidate();
+            }
+            catch (Exception mens)
+            {
+                MessageBox.Show(mens.Message);
+            }
         }
     }
 }
