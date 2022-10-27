@@ -284,6 +284,7 @@ namespace apCidadesMarte
             this.btnCancelar.Size = new System.Drawing.Size(57, 39);
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnSalvar
             // 
@@ -313,6 +314,7 @@ namespace apCidadesMarte
             this.btnExcluirCidade.Size = new System.Drawing.Size(46, 39);
             this.btnExcluirCidade.Text = "Excluir";
             this.btnExcluirCidade.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExcluirCidade.Click += new System.EventHandler(this.btnExcluirCidade_Click);
             // 
             // toolStripSeparator5
             // 
@@ -360,6 +362,7 @@ namespace apCidadesMarte
             this.btnExcluirCaminho.TabIndex = 25;
             this.btnExcluirCaminho.Text = "Excluir";
             this.btnExcluirCaminho.UseVisualStyleBackColor = true;
+            this.btnExcluirCaminho.Click += new System.EventHandler(this.btnExcluirCaminho_Click);
             // 
             // btnAlterar
             // 
