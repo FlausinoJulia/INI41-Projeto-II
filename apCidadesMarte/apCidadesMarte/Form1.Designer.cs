@@ -30,7 +30,7 @@ namespace apCidadesMarte
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCidadesMarte));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCidadesMarte = new System.Windows.Forms.TabControl();
             this.tpCaminhos = new System.Windows.Forms.TabPage();
             this.ssMensagem = new System.Windows.Forms.StatusStrip();
@@ -464,8 +464,8 @@ namespace apCidadesMarte
             this.Custo});
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 181);
             this.dgvCaminhos.Name = "dgvCaminhos";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCaminhos.Size = new System.Drawing.Size(406, 315);
             this.dgvCaminhos.TabIndex = 11;
             // 
@@ -523,7 +523,6 @@ namespace apCidadesMarte
             0,
             0});
             this.udY.Name = "udY";
-            this.udY.ReadOnly = true;
             this.udY.Size = new System.Drawing.Size(120, 26);
             this.udY.TabIndex = 15;
             // 
@@ -543,7 +542,6 @@ namespace apCidadesMarte
             0,
             0});
             this.udX.Name = "udX";
-            this.udX.ReadOnly = true;
             this.udX.Size = new System.Drawing.Size(120, 26);
             this.udX.TabIndex = 14;
             // 
@@ -552,7 +550,6 @@ namespace apCidadesMarte
             this.txtNome.Location = new System.Drawing.Point(146, 28);
             this.txtNome.MaxLength = 15;
             this.txtNome.Name = "txtNome";
-            this.txtNome.ReadOnly = true;
             this.txtNome.Size = new System.Drawing.Size(158, 26);
             this.txtNome.TabIndex = 13;
             // 

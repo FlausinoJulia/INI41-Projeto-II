@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Drawing;
-using System.Threading;
 
 namespace apCidadesMarte
 {
@@ -20,6 +14,7 @@ namespace apCidadesMarte
         NoArvore<Dado> raiz,
                        atual,       // indica o nó que está sendo visitado no momento
                        antecessor;  // indica o nó ancestral daquele que está sendo visitado no momento
+        
         int quantosNos;
 
         public Panel painelArvore;
@@ -32,8 +27,8 @@ namespace apCidadesMarte
 
         public ArvoreDeBusca()
         {
-            raiz = null;
-            atual = null;
+            raiz       = null;
+            atual      = null;
             antecessor = null;
             quantosNos = 0;
         }
@@ -228,7 +223,7 @@ namespace apCidadesMarte
         private string PercursoPorNiveis(NoArvore<Dado> noAtual)
         {
             string saida = "";
-            //Filalista<NoArvore<Dado>> umaFila = new FilaLista<NoArvore<Dado>>();
+            // Filalista<NoArvore<Dado>> umaFila = new FilaLista<NoArvore<Dado>>();
 
             var umaFila = new Queue<NoArvore<Dado>>();
             while (noAtual != null)
