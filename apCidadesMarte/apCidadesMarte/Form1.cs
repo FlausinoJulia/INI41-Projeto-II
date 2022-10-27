@@ -83,18 +83,11 @@ namespace apCidadesMarte
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-
+            DesabilitarCampos();
+            AtualizarInfos();
         }
 
-        private void AtualizarTela()
-        {
-            if (arvoreCidades != null)
-            {
-                // MostrarCidadesNoMapa();
-                // arvoreCidades.ExibirDados(arvoreCidades);
-                // AtualizarInfos();
-            }
-        }
+        
 
         public void DesabilitarCampos()
         {
@@ -102,6 +95,8 @@ namespace apCidadesMarte
             udX.Enabled = false;
             udY.Enabled = false;
         }
+
+      
 
         private void AtualizarInfos()
         {
@@ -140,8 +135,9 @@ namespace apCidadesMarte
 
         private void btnSair_Click(object sender, EventArgs e)
         {
+            var nomeDoArquivo = dlgAbrirCidades.FileName;
             if (nomeDoArquivo != "" || nomeDoArquivo != " " || nomeDoArquivo != null)
-                listaCidades.GravarDados(nomeDoArquivo);
+                arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivo);
             Close();
         }
 
@@ -157,6 +153,11 @@ namespace apCidadesMarte
             {
                 MessageBox.Show(mens.Message);
             }
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            arvoreCidades.GravarArquivoDeRegistros(dlgAbrirCidades.FileName);
         }
     }
 }
