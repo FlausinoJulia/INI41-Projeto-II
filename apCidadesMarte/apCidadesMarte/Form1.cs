@@ -170,5 +170,32 @@ namespace apCidadesMarte
                 */
             }
         }
+
+        private void pbMapa_Paint(object sender, PaintEventArgs e)
+        {
+            int posicaoDado = arvoreCidades.;
+
+            /*
+            int posicaoDado = listaCidades.PosicaoAtual;
+            listaCidades.PosicionarNoPrimeiro();
+            Font fonte = new Font("Arial", 10);
+
+            while (listaCidades.DadoAtual() != null)
+            {
+                Cidade cidade = listaCidades.DadoAtual();
+
+                int x = (int)(cidade.X * pbMapa.Width);
+                int y = (int)(cidade.Y * pbMapa.Height);
+
+                e.Graphics.DrawEllipse(Pens.Black, new Rectangle(x, y, 6, 6));
+                e.Graphics.FillEllipse(Brushes.Black, new Rectangle(x, y, 6, 6));
+                e.Graphics.DrawString(cidade.Nome, fonte, Brushes.Black, x - 20, y + 10);
+
+                listaCidades.AvancarPosicao();
+            }
+
+            listaCidades.PosicionarEm(posicaoDado);
+            */
+        }
     }
 }
