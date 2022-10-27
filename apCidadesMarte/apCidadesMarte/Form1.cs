@@ -14,6 +14,7 @@ namespace apCidadesMarte
     public partial class frmCidadesMarte : Form
     {
         ArvoreDeBusca<Cidade> arvoreCidades;
+        ArvoreDeBusca<Caminho> arvoreCaminhos;
         public frmCidadesMarte()
         {
             InitializeComponent();
@@ -99,7 +100,33 @@ namespace apCidadesMarte
 
         private void btnExcluirCaminho_Click(object sender, EventArgs e)
         {
+            if (txtDestino.Text == "")
+            {
+                MessageBox.Show("Digite o caminho que deseja excluir!");
+                txtDestino.Focus();
+            }
 
+            else
+            {
+                string nomeCaminho = txtDestino.Text;
+                Caminho caminho = new Caminho();
+                caminho.CidDestino = nomeCaminho;
+
+                if (!arvoreCaminhos.Existe(caminho))
+                {
+                    MessageBox.Show("Esse caminho não existe!");
+                }
+                else
+                {
+                    Caminho caminhoAExcluir = arvoreCaminhos.Atual.Info;
+                    arvoreCaminhos.ApagarNo(arvoreCaminhos.Atual.Info);
+
+                    btnSalvar.Enabled = true;
+                    btnCancelar.Enabled = true;
+                    btnExcluirCidade.Enabled = true;
+                }
+
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

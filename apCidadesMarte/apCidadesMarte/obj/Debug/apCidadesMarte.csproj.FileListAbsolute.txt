@@ -30,3 +30,14 @@ C:\Users\u21241\Documents\Projetos\Repositorios\INI41\INI41-Projeto-II\apCidades
 C:\Users\u21241\Documents\Projetos\Repositorios\INI41\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.CoreCompileInputs.cache
 C:\Users\u21241\Documents\Projetos\Repositorios\INI41\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.exe
 C:\Users\u21241\Documents\Projetos\Repositorios\INI41\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.pdb
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\bin\Debug\apCidadesMarte.exe.config
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\bin\Debug\apCidadesMarte.exe
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\bin\Debug\apCidadesMarte.pdb
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.AssemblyReference.cache
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.SuggestedBindingRedirects.cache
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.frmCidadesMarte.resources
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.Properties.Resources.resources
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.GenerateResource.cache
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.CoreCompileInputs.cache
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.exe
+C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.pdb
