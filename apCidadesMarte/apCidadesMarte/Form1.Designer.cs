@@ -30,7 +30,11 @@ namespace apCidadesMarte
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCidadesMarte));
+<<<<<<< HEAD
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+=======
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.tcCidadesMarte = new System.Windows.Forms.TabControl();
             this.tpCaminhos = new System.Windows.Forms.TabPage();
             this.ssMensagem = new System.Windows.Forms.StatusStrip();
@@ -82,9 +86,14 @@ namespace apCidadesMarte
             this.tpArvore = new System.Windows.Forms.TabPage();
             this.pbArvore = new System.Windows.Forms.PictureBox();
             this.dlgAbrirCidades = new System.Windows.Forms.OpenFileDialog();
+<<<<<<< HEAD
             this.btnExibir = new System.Windows.Forms.ToolStripButton();
             this.txtOrigem = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+=======
+            this.lbOrigem = new System.Windows.Forms.Label();
+            this.txtOrigem = new System.Windows.Forms.TextBox();
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.tcCidadesMarte.SuspendLayout();
             this.tpCaminhos.SuspendLayout();
             this.ssMensagem.SuspendLayout();
@@ -186,6 +195,7 @@ namespace apCidadesMarte
             this.pbMapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbMapa.TabIndex = 12;
             this.pbMapa.TabStop = false;
+            this.pbMapa.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMapa_Paint);
             // 
             // udOpcoes
             // 
@@ -278,6 +288,7 @@ namespace apCidadesMarte
             this.btnCancelar.Size = new System.Drawing.Size(57, 39);
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnSalvar
             // 
@@ -308,6 +319,7 @@ namespace apCidadesMarte
             this.btnExcluirCidade.Size = new System.Drawing.Size(46, 39);
             this.btnExcluirCidade.Text = "Excluir";
             this.btnExcluirCidade.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExcluirCidade.Click += new System.EventHandler(this.btnExcluirCidade_Click);
             // 
             // toolStripSeparator5
             // 
@@ -330,7 +342,11 @@ namespace apCidadesMarte
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.groupBox2.Controls.Add(this.txtOrigem);
+<<<<<<< HEAD
             this.groupBox2.Controls.Add(this.label1);
+=======
+            this.groupBox2.Controls.Add(this.lbOrigem);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.groupBox2.Controls.Add(this.btnExcluirCaminho);
             this.groupBox2.Controls.Add(this.btnAlterar);
             this.groupBox2.Controls.Add(this.btnIncluirCaminho);
@@ -352,34 +368,53 @@ namespace apCidadesMarte
             // 
             // btnExcluirCaminho
             // 
+<<<<<<< HEAD
             this.btnExcluirCaminho.Location = new System.Drawing.Point(298, 117);
+=======
+            this.btnExcluirCaminho.Location = new System.Drawing.Point(292, 133);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.btnExcluirCaminho.Name = "btnExcluirCaminho";
             this.btnExcluirCaminho.Size = new System.Drawing.Size(114, 40);
             this.btnExcluirCaminho.TabIndex = 25;
             this.btnExcluirCaminho.Text = "Excluir";
             this.btnExcluirCaminho.UseVisualStyleBackColor = true;
+            this.btnExcluirCaminho.Click += new System.EventHandler(this.btnExcluirCaminho_Click);
             // 
             // btnAlterar
             // 
+<<<<<<< HEAD
             this.btnAlterar.Location = new System.Drawing.Point(298, 71);
+=======
+            this.btnAlterar.Location = new System.Drawing.Point(292, 87);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(114, 40);
             this.btnAlterar.TabIndex = 24;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
             // btnIncluirCaminho
             // 
+<<<<<<< HEAD
             this.btnIncluirCaminho.Location = new System.Drawing.Point(298, 25);
+=======
+            this.btnIncluirCaminho.Location = new System.Drawing.Point(292, 42);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.btnIncluirCaminho.Name = "btnIncluirCaminho";
             this.btnIncluirCaminho.Size = new System.Drawing.Size(114, 40);
             this.btnIncluirCaminho.TabIndex = 23;
             this.btnIncluirCaminho.Text = "Incluir";
             this.btnIncluirCaminho.UseVisualStyleBackColor = true;
+            this.btnIncluirCaminho.Click += new System.EventHandler(this.btnIncluirCaminho_Click);
             // 
             // txtCusto
             // 
+<<<<<<< HEAD
             this.txtCusto.Location = new System.Drawing.Point(132, 166);
+=======
+            this.txtCusto.Location = new System.Drawing.Point(128, 171);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.txtCusto.MaxLength = 15;
             this.txtCusto.Name = "txtCusto";
             this.txtCusto.ReadOnly = true;
@@ -388,7 +423,11 @@ namespace apCidadesMarte
             // 
             // txtTempo
             // 
+<<<<<<< HEAD
             this.txtTempo.Location = new System.Drawing.Point(132, 130);
+=======
+            this.txtTempo.Location = new System.Drawing.Point(128, 136);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.txtTempo.MaxLength = 15;
             this.txtTempo.Name = "txtTempo";
             this.txtTempo.ReadOnly = true;
@@ -398,7 +437,11 @@ namespace apCidadesMarte
             // label8
             // 
             this.label8.AutoSize = true;
+<<<<<<< HEAD
             this.label8.Location = new System.Drawing.Point(12, 169);
+=======
+            this.label8.Location = new System.Drawing.Point(8, 174);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 20);
             this.label8.TabIndex = 20;
@@ -407,7 +450,11 @@ namespace apCidadesMarte
             // label7
             // 
             this.label7.AutoSize = true;
+<<<<<<< HEAD
             this.label7.Location = new System.Drawing.Point(12, 133);
+=======
+            this.label7.Location = new System.Drawing.Point(8, 139);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 20);
             this.label7.TabIndex = 19;
@@ -415,7 +462,11 @@ namespace apCidadesMarte
             // 
             // txtDistancia
             // 
+<<<<<<< HEAD
             this.txtDistancia.Location = new System.Drawing.Point(132, 95);
+=======
+            this.txtDistancia.Location = new System.Drawing.Point(128, 101);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.txtDistancia.MaxLength = 15;
             this.txtDistancia.Name = "txtDistancia";
             this.txtDistancia.ReadOnly = true;
@@ -425,7 +476,11 @@ namespace apCidadesMarte
             // label6
             // 
             this.label6.AutoSize = true;
+<<<<<<< HEAD
             this.label6.Location = new System.Drawing.Point(12, 98);
+=======
+            this.label6.Location = new System.Drawing.Point(8, 104);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(114, 20);
             this.label6.TabIndex = 17;
@@ -433,7 +488,11 @@ namespace apCidadesMarte
             // 
             // txtDestino
             // 
+<<<<<<< HEAD
             this.txtDestino.Location = new System.Drawing.Point(132, 61);
+=======
+            this.txtDestino.Location = new System.Drawing.Point(128, 66);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.txtDestino.MaxLength = 15;
             this.txtDestino.Name = "txtDestino";
             this.txtDestino.ReadOnly = true;
@@ -443,7 +502,11 @@ namespace apCidadesMarte
             // label5
             // 
             this.label5.AutoSize = true;
+<<<<<<< HEAD
             this.label5.Location = new System.Drawing.Point(12, 64);
+=======
+            this.label5.Location = new System.Drawing.Point(8, 69);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 20);
             this.label5.TabIndex = 16;
@@ -460,11 +523,19 @@ namespace apCidadesMarte
             this.Distancia,
             this.Tempo,
             this.Custo});
+<<<<<<< HEAD
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 198);
             this.dgvCaminhos.Name = "dgvCaminhos";
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCaminhos.Size = new System.Drawing.Size(406, 298);
+=======
+            this.dgvCaminhos.Location = new System.Drawing.Point(6, 206);
+            this.dgvCaminhos.Name = "dgvCaminhos";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvCaminhos.Size = new System.Drawing.Size(406, 290);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.dgvCaminhos.TabIndex = 11;
             // 
             // Destino
@@ -602,6 +673,7 @@ namespace apCidadesMarte
             // 
             this.dlgAbrirCidades.FileName = "openFileDialog1";
             // 
+<<<<<<< HEAD
             // btnExibir
             // 
             this.btnExibir.Image = ((System.Drawing.Image)(resources.GetObject("btnExibir.Image")));
@@ -614,10 +686,25 @@ namespace apCidadesMarte
             // txtOrigem
             // 
             this.txtOrigem.Location = new System.Drawing.Point(132, 25);
+=======
+            // lbOrigem
+            // 
+            this.lbOrigem.AutoSize = true;
+            this.lbOrigem.Location = new System.Drawing.Point(8, 31);
+            this.lbOrigem.Name = "lbOrigem";
+            this.lbOrigem.Size = new System.Drawing.Size(64, 20);
+            this.lbOrigem.TabIndex = 26;
+            this.lbOrigem.Text = "Origem:";
+            // 
+            // txtOrigem
+            // 
+            this.txtOrigem.Location = new System.Drawing.Point(128, 28);
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             this.txtOrigem.MaxLength = 15;
             this.txtOrigem.Name = "txtOrigem";
             this.txtOrigem.ReadOnly = true;
             this.txtOrigem.Size = new System.Drawing.Size(158, 26);
+<<<<<<< HEAD
             this.txtOrigem.TabIndex = 26;
             // 
             // label1
@@ -628,6 +715,9 @@ namespace apCidadesMarte
             this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 27;
             this.label1.Text = "Origem:";
+=======
+            this.txtOrigem.TabIndex = 27;
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
             // 
             // frmCidadesMarte
             // 
@@ -717,9 +807,14 @@ namespace apCidadesMarte
         private System.Windows.Forms.DataGridViewTextBoxColumn Custo;
         private System.Windows.Forms.PictureBox pbArvore;
         private System.Windows.Forms.OpenFileDialog dlgAbrirCidades;
+<<<<<<< HEAD
         private System.Windows.Forms.ToolStripButton btnExibir;
         private System.Windows.Forms.TextBox txtOrigem;
         private System.Windows.Forms.Label label1;
+=======
+        private System.Windows.Forms.TextBox txtOrigem;
+        private System.Windows.Forms.Label lbOrigem;
+>>>>>>> 11bf39d6ab866b88e36429e1f637d249f52ddf6f
     }
 }
 
