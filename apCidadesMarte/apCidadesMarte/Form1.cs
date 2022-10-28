@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace apCidadesMarte
 {
     public partial class frmCidadesMarte : Form
     {
-        ArvoreDeBusca<Cidade> arvoreCidades;
+        // arvores de caminho de de cidades
+        ArvoreDeBusca<Cidade>  arvoreCidades;
         ArvoreDeBusca<Caminho> arvoreCaminhos;
+        // variáveis relacionadas aos arquivos binários
+        string nomeDoArquivo;
         BinaryWriter arquivo = new BinaryWriter(new MemoryStream());
 
         public frmCidadesMarte()
@@ -24,36 +21,51 @@ namespace apCidadesMarte
 
         private void frmCidadesMarte_Load(object sender, EventArgs e)
         {
-            arvoreCidades = new ArvoreDeBusca<Cidade>();
-                /*
-                if (dlgAbrirCidades.ShowDialog() == DialogResult.OK)
+            if (dlgAbrirCidades.ShowDialog() == DialogResult.OK)
+            {
+                nomeDoArquivo = dlgAbrirCidades.FileName;
+                arvoreCidades = new ArvoreDeBusca<Cidade>();
+                // arvoreCidades.OndeExibir = pbArvore;
+                if (File.Exists(nomeDoArquivo))
                 {
-                    arvoreCidades = new ArvoreDeBusca<Cidade>();
-                    // arvoreCidades.OndeExibir = pbArvore;
-                    if (!File.Exists(dlgAbrirCidades.FileName))
-                    {
-                        var cidade = new Cidade();
-                        var arquivoCriado = File.Create(dlgAbrirCidades.FileName);
-                        arquivoCriado.Close();
-                    }
-                    arvoreCidades.LerArquivoDeRegistros(dlgAbrirCidades.FileName);
-                    // pbArvore.Invalidate();  // disparar o evento Paint, que desenha a árvore
+                    arvoreCidades.LerArquivoDeRegistros(nomeDoArquivo);
                 }
-                */
+                else
+                    MessageBox.Show("O arquivo indicado não existe!"); // arrumar isso aqui
+                // pbArvore.Invalidate();  // disparar o evento Paint, que desenha a árvore
+
+                MessageBox.Show(arvoreCidades.QtosNos() + "");
+
+                /* while (arvoreCidades.Atual.Info != null)
+                     MessageBox.Show(arvoreCidades.Atual.Info);*/
             }
+        }
 
         private void btnIncluirCidade_Click(object sender, EventArgs e)
         {
-            try
+            if (txtNome.Text == "")
+                MessageBox.Show("Preencha todos os campos para incluir a cidade!");
+            else
             {
+                string nome = txtNome.Text;
+                decimal x = udX.Value, y = udY.Value;
+
+                // verificar se existe uma cidade naquela coordenada,
+                // porque não pode ter duas cidades diferentes na mesma coordenada
+                // if (arvoreCidades.)
+
                 ListaSimples<Caminho> caminhos = new ListaSimples<Caminho>();
-                var cidade = new Cidade(txtNome.Text, udX.Value, udY.Value, caminhos);
-                arvoreCidades.InserirBalanceado(cidade);
-                pbArvore.Invalidate();
-            }
-            catch (Exception mens)
-            {
-                MessageBox.Show(mens.Message);
+                Cidade cidadeNova = new Cidade(nome, x, y, caminhos);
+
+                try
+                {
+                    arvoreCidades.InserirBalanceado(cidadeNova);
+                    pbArvore.Invalidate();
+                }
+                catch (Exception ex) // se o registro já existe na árvore
+                {
+                    MessageBox.Show("Essa cidade já está cadastrada!");
+                }
             }
         }
 
@@ -87,16 +99,12 @@ namespace apCidadesMarte
             AtualizarInfos();
         }
 
-        
-
         public void DesabilitarCampos()
         {
             txtNome.ReadOnly = true;
             udX.Enabled = false;
             udY.Enabled = false;
         }
-
-      
 
         private void AtualizarInfos()
         {
@@ -135,9 +143,9 @@ namespace apCidadesMarte
 
         private void btnSair_Click(object sender, EventArgs e)
         {
-            var nomeDoArquivo = dlgAbrirCidades.FileName;
             if (nomeDoArquivo != "" || nomeDoArquivo != " " || nomeDoArquivo != null)
                 arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivo);
+
             Close();
         }
 
@@ -157,7 +165,14 @@ namespace apCidadesMarte
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            arvoreCidades.GravarArquivoDeRegistros(dlgAbrirCidades.FileName);
+            if (nomeDoArquivo != "" && nomeDoArquivo != " " && nomeDoArquivo != null)
+                arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivo);
+        }
+
+        private void frmCidadesMarte_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (nomeDoArquivo != "" || nomeDoArquivo != " " || nomeDoArquivo != null)
+                arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivo);
         }
     }
 }

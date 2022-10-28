@@ -30,7 +30,7 @@ namespace apCidadesMarte
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCidadesMarte));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCidadesMarte = new System.Windows.Forms.TabControl();
             this.tpCaminhos = new System.Windows.Forms.TabPage();
             this.ssMensagem = new System.Windows.Forms.StatusStrip();
@@ -46,17 +46,19 @@ namespace apCidadesMarte
             this.btnProxima = new System.Windows.Forms.ToolStripButton();
             this.btnUltima = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnProcurar = new System.Windows.Forms.ToolStripButton();
+            this.btnExibir = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnEditarCidade = new System.Windows.Forms.ToolStripButton();
             this.btnIncluirCidade = new System.Windows.Forms.ToolStripButton();
             this.btnCancelar = new System.Windows.Forms.ToolStripButton();
             this.btnSalvar = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnExcluirCidade = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnSair = new System.Windows.Forms.ToolStripButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtOrigem = new System.Windows.Forms.TextBox();
+            this.lbOrigem = new System.Windows.Forms.Label();
             this.btnExcluirCaminho = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnIncluirCaminho = new System.Windows.Forms.Button();
@@ -83,8 +85,6 @@ namespace apCidadesMarte
             this.tpArvore = new System.Windows.Forms.TabPage();
             this.pbArvore = new System.Windows.Forms.PictureBox();
             this.dlgAbrirCidades = new System.Windows.Forms.OpenFileDialog();
-            this.lbOrigem = new System.Windows.Forms.Label();
-            this.txtOrigem = new System.Windows.Forms.TextBox();
             this.tcCidadesMarte.SuspendLayout();
             this.tpCaminhos.SuspendLayout();
             this.ssMensagem.SuspendLayout();
@@ -142,6 +142,7 @@ namespace apCidadesMarte
             this.ssMensagem.Size = new System.Drawing.Size(1186, 22);
             this.ssMensagem.TabIndex = 13;
             this.ssMensagem.Text = "statusStrip1";
+            this.ssMensagem.Visible = false;
             // 
             // sslCidades
             // 
@@ -189,7 +190,7 @@ namespace apCidadesMarte
             // 
             // udOpcoes
             // 
-            this.udOpcoes.BackColor = System.Drawing.Color.Silver;
+            this.udOpcoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.udOpcoes.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.udOpcoes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnPrimeira,
@@ -197,13 +198,13 @@ namespace apCidadesMarte
             this.btnProxima,
             this.btnUltima,
             this.toolStripSeparator1,
-            this.btnProcurar,
+            this.btnExibir,
             this.toolStripSeparator3,
+            this.btnEditarCidade,
             this.btnIncluirCidade,
             this.btnCancelar,
             this.btnSalvar,
             this.toolStripSeparator2,
-            this.toolStripSeparator4,
             this.btnExcluirCidade,
             this.toolStripSeparator5,
             this.btnSair});
@@ -221,6 +222,7 @@ namespace apCidadesMarte
             this.btnPrimeira.Size = new System.Drawing.Size(55, 39);
             this.btnPrimeira.Text = "Primeira";
             this.btnPrimeira.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnPrimeira.Visible = false;
             // 
             // btnAnterior
             // 
@@ -230,6 +232,7 @@ namespace apCidadesMarte
             this.btnAnterior.Size = new System.Drawing.Size(54, 39);
             this.btnAnterior.Text = "Anterior";
             this.btnAnterior.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnAnterior.Visible = false;
             // 
             // btnProxima
             // 
@@ -239,6 +242,7 @@ namespace apCidadesMarte
             this.btnProxima.Size = new System.Drawing.Size(55, 39);
             this.btnProxima.Text = "Próxima";
             this.btnProxima.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnProxima.Visible = false;
             // 
             // btnUltima
             // 
@@ -248,25 +252,36 @@ namespace apCidadesMarte
             this.btnUltima.Size = new System.Drawing.Size(46, 39);
             this.btnUltima.Text = "Última";
             this.btnUltima.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnUltima.Visible = false;
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 42);
+            this.toolStripSeparator1.Visible = false;
             // 
-            // btnProcurar
+            // btnExibir
             // 
-            this.btnProcurar.Image = ((System.Drawing.Image)(resources.GetObject("btnProcurar.Image")));
-            this.btnProcurar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnProcurar.Name = "btnProcurar";
-            this.btnProcurar.Size = new System.Drawing.Size(56, 39);
-            this.btnProcurar.Text = "Procurar";
-            this.btnProcurar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExibir.Image = ((System.Drawing.Image)(resources.GetObject("btnExibir.Image")));
+            this.btnExibir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExibir.Name = "btnExibir";
+            this.btnExibir.Size = new System.Drawing.Size(40, 39);
+            this.btnExibir.Text = "Exibir";
+            this.btnExibir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 42);
+            // 
+            // btnEditarCidade
+            // 
+            this.btnEditarCidade.Image = ((System.Drawing.Image)(resources.GetObject("btnEditarCidade.Image")));
+            this.btnEditarCidade.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEditarCidade.Name = "btnEditarCidade";
+            this.btnEditarCidade.Size = new System.Drawing.Size(41, 39);
+            this.btnEditarCidade.Text = "Editar";
+            this.btnEditarCidade.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // btnIncluirCidade
             // 
@@ -304,11 +319,6 @@ namespace apCidadesMarte
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 42);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 42);
             // 
             // btnExcluirCidade
             // 
@@ -361,9 +371,27 @@ namespace apCidadesMarte
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Caminhos";
             // 
+            // txtOrigem
+            // 
+            this.txtOrigem.Location = new System.Drawing.Point(128, 28);
+            this.txtOrigem.MaxLength = 15;
+            this.txtOrigem.Name = "txtOrigem";
+            this.txtOrigem.ReadOnly = true;
+            this.txtOrigem.Size = new System.Drawing.Size(158, 26);
+            this.txtOrigem.TabIndex = 27;
+            // 
+            // lbOrigem
+            // 
+            this.lbOrigem.AutoSize = true;
+            this.lbOrigem.Location = new System.Drawing.Point(8, 31);
+            this.lbOrigem.Name = "lbOrigem";
+            this.lbOrigem.Size = new System.Drawing.Size(64, 20);
+            this.lbOrigem.TabIndex = 26;
+            this.lbOrigem.Text = "Origem:";
+            // 
             // btnExcluirCaminho
             // 
-            this.btnExcluirCaminho.Location = new System.Drawing.Point(292, 133);
+            this.btnExcluirCaminho.Location = new System.Drawing.Point(298, 120);
             this.btnExcluirCaminho.Name = "btnExcluirCaminho";
             this.btnExcluirCaminho.Size = new System.Drawing.Size(114, 40);
             this.btnExcluirCaminho.TabIndex = 25;
@@ -373,7 +401,7 @@ namespace apCidadesMarte
             // 
             // btnAlterar
             // 
-            this.btnAlterar.Location = new System.Drawing.Point(292, 87);
+            this.btnAlterar.Location = new System.Drawing.Point(298, 74);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(114, 40);
             this.btnAlterar.TabIndex = 24;
@@ -383,7 +411,7 @@ namespace apCidadesMarte
             // 
             // btnIncluirCaminho
             // 
-            this.btnIncluirCaminho.Location = new System.Drawing.Point(292, 42);
+            this.btnIncluirCaminho.Location = new System.Drawing.Point(298, 28);
             this.btnIncluirCaminho.Name = "btnIncluirCaminho";
             this.btnIncluirCaminho.Size = new System.Drawing.Size(114, 40);
             this.btnIncluirCaminho.TabIndex = 23;
@@ -476,8 +504,8 @@ namespace apCidadesMarte
             this.Custo});
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 206);
             this.dgvCaminhos.Name = "dgvCaminhos";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCaminhos.Size = new System.Drawing.Size(406, 290);
             this.dgvCaminhos.TabIndex = 11;
             // 
@@ -618,24 +646,6 @@ namespace apCidadesMarte
             // 
             this.dlgAbrirCidades.FileName = "openFileDialog1";
             // 
-            // lbOrigem
-            // 
-            this.lbOrigem.AutoSize = true;
-            this.lbOrigem.Location = new System.Drawing.Point(8, 31);
-            this.lbOrigem.Name = "lbOrigem";
-            this.lbOrigem.Size = new System.Drawing.Size(64, 20);
-            this.lbOrigem.TabIndex = 26;
-            this.lbOrigem.Text = "Origem:";
-            // 
-            // txtOrigem
-            // 
-            this.txtOrigem.Location = new System.Drawing.Point(128, 28);
-            this.txtOrigem.MaxLength = 15;
-            this.txtOrigem.Name = "txtOrigem";
-            this.txtOrigem.ReadOnly = true;
-            this.txtOrigem.Size = new System.Drawing.Size(158, 26);
-            this.txtOrigem.TabIndex = 27;
-            // 
             // frmCidadesMarte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -648,6 +658,7 @@ namespace apCidadesMarte
             this.MinimumSize = new System.Drawing.Size(1100, 650);
             this.Name = "frmCidadesMarte";
             this.Text = "Caminhos entre Cidades de Marte";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCidadesMarte_FormClosing);
             this.Load += new System.EventHandler(this.frmCidadesMarte_Load);
             this.tcCidadesMarte.ResumeLayout(false);
             this.tpCaminhos.ResumeLayout(false);
@@ -695,13 +706,11 @@ namespace apCidadesMarte
         private System.Windows.Forms.ToolStripButton btnProxima;
         private System.Windows.Forms.ToolStripButton btnUltima;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnProcurar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnIncluirCidade;
         private System.Windows.Forms.ToolStripButton btnCancelar;
         private System.Windows.Forms.ToolStripButton btnSalvar;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnExcluirCidade;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton btnSair;
@@ -726,6 +735,8 @@ namespace apCidadesMarte
         private System.Windows.Forms.OpenFileDialog dlgAbrirCidades;
         private System.Windows.Forms.TextBox txtOrigem;
         private System.Windows.Forms.Label lbOrigem;
+        private System.Windows.Forms.ToolStripButton btnExibir;
+        private System.Windows.Forms.ToolStripButton btnEditarCidade;
     }
 }
 
