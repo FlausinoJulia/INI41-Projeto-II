@@ -66,8 +66,8 @@ namespace apCidadesMarte
                     umNome[i] = nome[i];                // copia os caracteres do campo nome para o vetor de char
                 arquivo.Write(umNome);                  // grava o vetor de char no arquivo (com tamanho 15)
 
-                arquivo.Write(X);                       // escreve os 16 bytes da coordenada X no arquivo 
-                arquivo.Write(Y);                       // escreve os 16 bytes da coordenada Y no arquivo 
+                arquivo.Write(X);                       // escreve os bytes da coordenada X no arquivo 
+                arquivo.Write(Y);                       // escreve os bytes da coordenada Y no arquivo 
             }
         }
 

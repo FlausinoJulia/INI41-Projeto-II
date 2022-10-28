@@ -57,6 +57,11 @@ namespace apCidadesMarte
                 btnExibir.Enabled = false;
                 btnSalvar.Enabled = false;
 
+                // limpando os campos para o usuário digitar os dados desejados
+                txtNome.Text = "";
+                udX.Value = 0;
+                udY.Value = 0;
+
                 sslMensagem.Text = "Digite os dados da cidade e clique em incluir.";
             }
             else
@@ -107,23 +112,47 @@ namespace apCidadesMarte
             btnSair.Enabled = true;
 
             // desabilitando os campos de digitação de dados
-            txtNome.ReadOnly = true;
-            txtNome.Enabled = false;
-            udX.ReadOnly = true;
-            udX.Enabled = false;
-            udY.ReadOnly = true;
-            udY.Enabled = false;
+            DesabilitarCampos();
+            AtualizarInfos(); 
         }
 
         private void btnExcluirCidade_Click(object sender, EventArgs e)
         {
-            if (txtNome.Text != null)
+            if (arvoreCidades.SituacaoAtual != Situacao.excluindo)
             {
-                var cidade = new Cidade(txtNome.Text);
-                if (arvoreCidades.ApagarNo(cidade))
-                    pnlArvore.Invalidate();
+                arvoreCidades.SituacaoAtual = Situacao.excluindo;
+
+                // habilitando os campos para que o user digite o nome da cidade a ser excluida
+                txtNome.ReadOnly = false;
+                txtNome.Enabled = true;
+
+                // setando os botões
+                btnIncluirCidade.Enabled = false;
+                btnCancelar.Enabled = true;
+                btnExcluirCidade.Enabled = true;
+                btnEditarCidade.Enabled = false;
+                btnExibir.Enabled = false;
+                btnSalvar.Enabled = false;
+
+                // pedimos para o usuário digitar o nome da cidade que ele quer excluir
+                sslMensagem.Text = "Digite o nome da cidade que quer deletar e clique em excluir.";
+                txtNome.Focus(); // colocamos o foco no txtNome
+            }
+            else
+            {
+                if (txtNome.Text != "")
+                {
+                    Cidade cidade = new Cidade(txtNome.Text);
+                    if (arvoreCidades.ApagarNo(cidade))
+                    {
+                        pnlArvore.Invalidate();
+                        TelaDeNavegacaoCidades(); // volta tudo ao normal
+                    }
+                    else
+                        MessageBox.Show("Essa cidade não existe!");
+                }
                 else
-                    MessageBox.Show("Matrícula não existente!");
+                    MessageBox.Show("Digite o nome da cidade que quer excluir!");
             }
         }
 
@@ -141,34 +170,34 @@ namespace apCidadesMarte
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            DesabilitarCampos();
-            AtualizarInfos();
+            TelaDeNavegacaoCidades();
         }
 
         public void DesabilitarCampos()
         {
-            txtNome.ReadOnly = true;
+            txtNome.Enabled = false;
             udX.Enabled = false;
             udY.Enabled = false;
+            txtNome.ReadOnly = true;
+            udX.ReadOnly = true;
+            udY.ReadOnly = true;
         }
 
         private void AtualizarInfos()
         {
-            if (arvoreCidades != null)
+            if (arvoreCidades != null && arvoreCidades.Raiz != null) 
             {
-                Cidade cidadeAtual = arvoreCidades.Atual.Info;
-                txtNome.Text = cidadeAtual.Nome;
-                udX.Value = cidadeAtual.X;
-                udY.Value = cidadeAtual.Y;
-
-                /*
-                slMensagem.Text = "Registro " +
-                                  (listaCidades.PosicaoAtual + 1) +
-                                  "/" +
-                                  listaCidades.Tamanho;
-
-                lbListaCidades.SelectedIndex = listaCidades.PosicaoAtual;
-                */
+                Cidade cidade = arvoreCidades.Raiz.Info;
+                txtNome.Text = cidade.Nome;
+                udX.Value = cidade.X;
+                udY.Value = cidade.Y;
+            }
+            else // se a arvore estiver vazia ou nenhum arquivo tiver sido lido
+            {
+                txtNome.Text = "";
+                udX.Value = 0;
+                udY.Value = 0;
+                
             }
         }
 
@@ -213,7 +242,7 @@ namespace apCidadesMarte
                         arvoreCaminhos.InserirBalanceado(caminho);
                     }
                 }
-                catch (Exception mens)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Esse caminho já está registrado!");
                 }
@@ -228,7 +257,13 @@ namespace apCidadesMarte
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (nomeDoArquivo != "" && nomeDoArquivo != " " && nomeDoArquivo != null)
+            {
                 arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivo);
+                MessageBox.Show("As alterações foram salvas!");
+            }
+            else
+                MessageBox.Show("Nenhum arquivo foi selecionado!");
+            
         }
 
         private void frmCidadesMarte_FormClosing(object sender, FormClosingEventArgs e)
@@ -265,7 +300,6 @@ namespace apCidadesMarte
 
                 // pedimos para o usuário digitar o nome da cidade que ele quer consultar
                 sslMensagem.Text = "Digite o nome da cidade desejada e clique em exibir novamente.";
-                txtNome.ReadOnly = false; // habilitamos o txtNome
                 txtNome.Focus();          // colocamos o foco no txtNome
             }
             else
@@ -273,7 +307,6 @@ namespace apCidadesMarte
                 if (txtNome.Text != "")
                 {
                     string nome = txtNome.Text;
-                    nome.TrimEnd().TrimStart();
                     Cidade cidadeAConsultar = new Cidade(nome);
 
                     if (arvoreCidades.ExisteRegistro(cidadeAConsultar))
@@ -281,9 +314,10 @@ namespace apCidadesMarte
                         udX.Value = arvoreCidades.Atual.Info.X;
                         udY.Value = arvoreCidades.Atual.Info.Y;
                     }
-
-                    // desabilitamos o txtNome
-                    txtNome.ReadOnly = true;
+                    else 
+                    {
+                        MessageBox.Show("Essa cidade não está registrada!");
+                    }
 
                     // destacar a cidade atual no mapa - pontinho e texto em vermelho
 

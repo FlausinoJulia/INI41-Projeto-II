@@ -411,6 +411,9 @@ namespace apCidadesMarte
 
         public bool ApagarNo(Dado registroARemover)
         {
+            if (raiz == null)
+                return false; // não é possível remover, porque a arvore ta vazia
+
             atual = raiz;
             antecessor = null;
             bool ehFilhoEsquerdo = true;
