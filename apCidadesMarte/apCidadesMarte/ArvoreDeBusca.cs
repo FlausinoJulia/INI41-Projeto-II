@@ -7,6 +7,11 @@ using System.Windows.Forms;
 
 namespace apCidadesMarte
 {
+    public enum Situacao
+    {
+        incluindo, exibindo, editando, excluindo, navegando
+    }
+
     class ArvoreDeBusca<Dado>  // : IComparable<NoArvore<Dado>> 
                                 where Dado : IComparable<Dado>, IRegistro,
                                              new()  // indica que a classe específica terá um construtor vazio
@@ -14,8 +19,9 @@ namespace apCidadesMarte
         NoArvore<Dado> raiz,
                        atual,       // indica o nó que está sendo visitado no momento
                        antecessor;  // indica o nó ancestral daquele que está sendo visitado no momento
-        
+
         int quantosNos;
+        Situacao situacaoAtual;  // o que está sendo feito com os dados no momento atual
 
         public Panel painelArvore;
 
@@ -27,10 +33,11 @@ namespace apCidadesMarte
 
         public ArvoreDeBusca()
         {
-            raiz       = null;
-            atual      = null;
+            raiz = null;
+            atual = null;
             antecessor = null;
             quantosNos = 0;
+            SituacaoAtual = Situacao.navegando;
         }
 
         public NoArvore<Dado> Raiz
@@ -38,24 +45,25 @@ namespace apCidadesMarte
             get => raiz; set => raiz = value;
         }
 
-        public String InOrdem  // propriedade que gera a string do percurso in-ordem da árvore
+        public string InOrdem  // propriedade que gera a string do percurso in-ordem da árvore
         {
             get { return FazInOrdem(raiz); }
         }
 
-        public String PreOrdem  // propriedade que gera a string do percurso pre-ordem da árvore
+        public string PreOrdem  // propriedade que gera a string do percurso pre-ordem da árvore
         {
             get { return FazPreOrdem(raiz); }
         }
 
-        public String PosOrdem  // propriedade que gera a string do percurso pos-ordem da árvore
+        public string PosOrdem  // propriedade que gera a string do percurso pos-ordem da árvore
         {
             get { return FazPosOrdem(raiz); }
         }
 
         public NoArvore<Dado> Atual { get => atual; set => atual = value; }
+        public Situacao SituacaoAtual { get => situacaoAtual; set => situacaoAtual = value; }
 
-        private String FazInOrdem(NoArvore<Dado> r)
+        private string FazInOrdem(NoArvore<Dado> r)
         {
             if (r == null)
                 return "";  // retorna cadeia vazia
@@ -65,7 +73,7 @@ namespace apCidadesMarte
                    FazInOrdem(r.Dir);
         }
 
-        private String FazPreOrdem(NoArvore<Dado> r)
+        private string FazPreOrdem(NoArvore<Dado> r)
         {
             if (r == null)
                 return "";  // retorna cadeia vazia
@@ -75,7 +83,7 @@ namespace apCidadesMarte
                    FazPreOrdem(r.Dir);
         }
 
-        private String FazPosOrdem(NoArvore<Dado> r)
+        private string FazPosOrdem(NoArvore<Dado> r)
         {
             if (r == null)
                 return "";  // retorna cadeia vazia
@@ -85,7 +93,6 @@ namespace apCidadesMarte
                    r.Info.ToString();
         }
 
-        // Exercícios iniciais
         private bool Eq(NoArvore<Dado> atualA,
                         NoArvore<Dado> atualB)
         {
@@ -127,6 +134,7 @@ namespace apCidadesMarte
         {
             return QtosNos(raiz);
         }
+
         private int QtasFolhas(NoArvore<Dado> noAtual)
         {
             if (noAtual == null)
@@ -291,16 +299,16 @@ namespace apCidadesMarte
             }
             return saida;
         }
+
         public string PreparaEscritaDosAntecessores(Dado procurado)
         {
             achou = false;
             return EscreverAntecessores(Raiz, procurado);
         }
 
-
-        public void DesenharArvore (bool primeiraVez, NoArvore<Dado> raiz,
-                                    int x, int y, double angulo, double incremento,
-                                    double comprimento, Graphics g)
+        public void DesenharArvore(bool primeiraVez, NoArvore<Dado> raiz,
+                                   int x, int y, double angulo, double incremento,
+                                   double comprimento, Graphics g)
         {
             int xf, yf;
             if (raiz != null)
@@ -326,26 +334,10 @@ namespace apCidadesMarte
                              new SolidBrush(Color.Black), xf - 23, yf - 7);
             }
         }
-        public bool Existe(Dado procurado)
-        {
-            antecessor = null;
-            atual = raiz;
-            while (atual != null)
-            {
-                if (atual.Info.CompareTo(procurado) == 0) // atual aponta o nó com o registro procurado, antecessor aponta seu "pai"
-                    return true;
-
-                antecessor = atual;
-                if (procurado.CompareTo(atual.Info) < 0)
-                    atual = atual.Esq;     // Desloca apontador para o ramo à esquerda
-                else
-                    atual = atual.Dir;     // Desloca apontador para o ramo à direita
-            }
-            return false;       // Se local == null, a chave não existe
-        }
 
         private bool ExisteRec(NoArvore<Dado> local, Dado procurado)
         {
+            // se a árvore tá vazia, o dado claramente não existe
             if (local == null)
                 return false;
 
@@ -367,61 +359,12 @@ namespace apCidadesMarte
             return ExisteRec(raiz, procurado);
         }
 
-        public void Incluir(Dado dadoLido)
-        {
-            Incluir(ref raiz, dadoLido);
-        }
-
-        private void Incluir(ref NoArvore<Dado> atual, Dado dadoLido)
-        {
-            if (atual == null)
-            {
-                atual = new NoArvore<Dado>(dadoLido);
-            }
-            else
-              if (dadoLido.CompareTo(atual.Info) == 0)
-                throw new Exception("Já existe esse registro!");
-            else
-              if (dadoLido.CompareTo(atual.Info) > 0)
-            {
-                NoArvore<Dado> apDireito = atual.Dir;
-                Incluir(ref apDireito, dadoLido);
-                atual.Dir = apDireito;
-            }
-            else
-            {
-                NoArvore<Dado> apEsquerdo = atual.Esq;
-                Incluir(ref apEsquerdo, dadoLido);
-                atual.Esq = apEsquerdo;
-            }
-        }
-
-        private void Incluir2(ref NoArvore<Dado> atual, Dado dadoLido)
-        {
-            if (Existe(dadoLido))  // configura o valor do ponteiro antecessor
-                throw new Exception("Já existe esse registro!");
-
-            // dadoLido não existe na árvore ainda, vamos incluí-lo
-
-            var novoNo = new NoArvore<Dado>(dadoLido);
-
-            if (raiz == null)  // se a árvore está vazia, raiz 
-                raiz = novoNo;  // aPONTARÁ O NOVO NÓ
-
-            else   // se a raiz não é nula, temos o atributo antecessor
-                   // apontando o pai do novo nó
-              if (dadoLido.CompareTo(antecessor.Info) < 0)
-                antecessor.Esq = novoNo;
-            else
-                antecessor.Dir = novoNo;
-        }
         public void LerArquivoDeRegistros(string nomeArquivo)
         {
             raiz = null;
             Dado dado = new Dado();
             var origem = new FileStream(nomeArquivo, FileMode.OpenOrCreate);
             var arquivo = new BinaryReader(origem);
-            MessageBox.Show("Tamanho do arquivo =" + origem.Length + "\n\nTamanho do registro = " + dado.TamanhoRegistro);
             int posicaoFinal = (int)origem.Length / dado.TamanhoRegistro - 1;
             Particionar(0, posicaoFinal, ref raiz);
             origem.Close();
@@ -432,14 +375,14 @@ namespace apCidadesMarte
                 {
                     long meio = (inicio + fim) / 2;
 
-                    dado = new Dado();       // cria um objeto para armazenar os dados
-                    dado.LerRegistro(arquivo, meio); 
+                    dado = new Dado();                          // cria um objeto para armazenar os dados
+                    dado.LerRegistro(arquivo, meio);
                     atual = new NoArvore<Dado>(dado);
                     var novoEsq = atual.Esq;
-                    Particionar(inicio, meio - 1, ref novoEsq);   // Particiona à esquerda 
+                    Particionar(inicio, meio - 1, ref novoEsq); // Particiona à esquerda 
                     atual.Esq = novoEsq;
                     var novoDir = atual.Dir;
-                    Particionar(meio + 1, fim, ref novoDir);        // Particiona à direita  
+                    Particionar(meio + 1, fim, ref novoDir);    // Particiona à direita  
                     atual.Dir = novoDir;
                 }
             }
@@ -464,131 +407,6 @@ namespace apCidadesMarte
                     GravarInOrdem(r.Dir);
                 }
             }
-        }
-
-        public void Inserir(Dado novosDados)
-        {
-            bool achou = false, fim = false;
-            NoArvore<Dado> novoNo = new NoArvore<Dado>(novosDados);
-            if (raiz == null)         // árvore vazia
-                raiz = novoNo;
-            else                      // árvore não-vazia
-            {
-                antecessor = null;
-                atual = raiz;
-                while (!achou && !fim)
-                {
-                    antecessor = atual;
-                    if (novosDados.CompareTo(atual.Info) < 0)
-                    {
-                        atual = atual.Esq;
-                        if (atual == null)
-                        {
-                            antecessor.Esq = novoNo;
-                            fim = true;
-                        }
-                    }
-                    else
-                        if (novosDados.CompareTo(atual.Info) == 0)
-                        achou = true;  // pode-se disparar uma exceção neste caso
-                    else
-                    {
-                        atual = atual.Dir;
-                        if (atual == null)
-                        {
-                            antecessor.Dir = novoNo;
-                            fim = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        public void IncluirNovoRegistro(Dado novoRegistro)
-        {
-            if (Existe(novoRegistro))
-                throw new Exception("Registro com chave repetida!");
-            else
-            {
-                // o novoRegistro tem uma chave inexistente, então criamos 
-                // um novo nó para armazená-lo e depois ligamos esse nó na
-                // árvore
-                var novoNo = new NoArvore<Dado>(novoRegistro);
-
-                // se a árvore está vazia, a raiz passará a apontar esse novo nó
-                if (raiz == null)
-                    raiz = novoNo;
-                else
-                  // nesse caso, antecessor aponta o pai do novo registro e
-                  // verificamos em qual ramo o novo nó será ligado
-                  if (novoRegistro.CompareTo(antecessor.Info) < 0)  // novo é menor que antecessor 
-                    antecessor.Esq = novoNo;        // vamos para a esquerda
-                else
-                    antecessor.Dir = novoNo;		 // ou vamos para a direita
-
-            }
-        }
-        public bool Excluir(Dado procurado)
-        {
-            return Excluir(ref raiz);
-
-
-            bool Excluir(ref NoArvore<Dado> atual)
-            {
-                NoArvore<Dado> atualAnt;
-                if (atual == null)
-                    return false;
-                else
-                  if (atual.Info.CompareTo(procurado) > 0)
-                {
-                    var temp = atual.Esq;
-                    bool result = Excluir(ref temp);
-                    atual.Esq = temp;
-                    return result;
-                }
-                else
-                    if (atual.Info.CompareTo(procurado) < 0)
-                {
-                    var temp = atual.Dir;
-                    bool result = Excluir(ref temp);
-                    atual.Esq = temp;
-                    return result;
-                }
-                else
-                {
-                    atualAnt = atual;   // nó a retirar 
-                    if (atual.Dir == null)
-                        atual = atual.Esq;
-                    else
-                      if (atual.Esq == null)
-                        atual = atual.Dir;
-                    else
-                    {   // pai de 2 filhos 
-                        var temp = atual.Esq;
-                        Rearranjar(ref temp, ref atualAnt);
-                        atual.Esq = temp;
-                        atualAnt = null;  // libera o nó excluído
-                    }
-                    return true;
-                }
-            }
-
-            void Rearranjar(ref NoArvore<Dado> aux, ref NoArvore<Dado> atualAnt)
-            {
-                if (aux.Dir != null)
-                {
-                    NoArvore<Dado> temp = aux.Dir;
-                    Rearranjar(ref temp, ref atualAnt);  // Procura Maior
-                    aux.Dir = temp;
-                }
-                else
-                {                           // Guarda os dados do nó a excluir
-                    atualAnt.Info = aux.Info;   // troca conteúdo!
-                    atualAnt = aux;             // funciona com a passagem por referência
-                    aux = aux.Esq;
-                }
-            }
-
         }
 
         public bool ApagarNo(Dado registroARemover)
@@ -684,13 +502,13 @@ namespace apCidadesMarte
             return sucessor;
         }
 
-        public int alturaArvore(NoArvore<Dado> atual, ref bool balanceada)
+        public int AlturaArvore(NoArvore<Dado> atual, ref bool balanceada)
         {
             int alturaDireita, alturaEsquerda, result;
             if (atual != null && balanceada)
             {
-                alturaEsquerda = 1 + alturaArvore(atual.Esq, ref balanceada);
-                alturaDireita = 1 + alturaArvore(atual.Dir, ref balanceada);
+                alturaEsquerda = 1 + AlturaArvore(atual.Esq, ref balanceada);
+                alturaDireita = 1 + AlturaArvore(atual.Dir, ref balanceada);
                 result = Math.Max(alturaEsquerda, alturaDireita);
 
                 //if (alturaDireita > alturaEsquerda)
@@ -706,7 +524,7 @@ namespace apCidadesMarte
             return result;
         }
 
-        public int getAltura(NoArvore<Dado> no)
+        public int GetAltura(NoArvore<Dado> no)
         {
             if (no != null)
                 return no.Altura;
@@ -718,6 +536,7 @@ namespace apCidadesMarte
         {
             raiz = InserirBalanceado(item, raiz);
         }
+
         private NoArvore<Dado> InserirBalanceado(Dado item, NoArvore<Dado> noAtual)
         {
             if (noAtual == null)
@@ -727,7 +546,7 @@ namespace apCidadesMarte
                 if (item.CompareTo(noAtual.Info) < 0)
                 {
                     noAtual.Esq = InserirBalanceado(item, noAtual.Esq);
-                    if (getAltura(noAtual.Esq) - getAltura(noAtual.Dir) == 2) // getAltura testa nulo
+                    if (GetAltura(noAtual.Esq) - GetAltura(noAtual.Dir) == 2) // getAltura testa nulo
                         if (item.CompareTo(noAtual.Esq.Info) < 0)
                             noAtual = RotacaoSimplesComFilhoEsquerdo(noAtual);
                         else
@@ -737,14 +556,14 @@ namespace apCidadesMarte
                 if (item.CompareTo(noAtual.Info) > 0)
                 {
                     noAtual.Dir = InserirBalanceado(item, noAtual.Dir);
-                    if (getAltura(noAtual.Dir) - getAltura(noAtual.Esq) == 2) // getAltura testa nulo
+                    if (GetAltura(noAtual.Dir) - GetAltura(noAtual.Esq) == 2) // getAltura testa nulo
                         if (item.CompareTo(noAtual.Dir.Info) > 0)
                             noAtual = RotacaoSimplesComFilhoDireito(noAtual);
                         else
                             noAtual = RotacaoDuplaComFilhoDireito(noAtual);
                 }
                 //else ; - não faz nada, valor duplicado
-                noAtual.Altura = Math.Max(getAltura(noAtual.Esq), getAltura(noAtual.Dir)) + 1;
+                noAtual.Altura = Math.Max(GetAltura(noAtual.Esq), GetAltura(noAtual.Dir)) + 1;
             }
             return noAtual;
         }
@@ -754,8 +573,8 @@ namespace apCidadesMarte
             NoArvore<Dado> temp = no.Esq;
             no.Esq = temp.Dir;
             temp.Dir = no;
-            no.Altura = Math.Max(getAltura(no.Esq), getAltura(no.Dir)) + 1;
-            temp.Altura = Math.Max(getAltura(temp.Esq), getAltura(no)) + 1;
+            no.Altura = Math.Max(GetAltura(no.Esq), GetAltura(no.Dir)) + 1;
+            temp.Altura = Math.Max(GetAltura(temp.Esq), GetAltura(no)) + 1;
             return temp;
         }
 
@@ -764,8 +583,8 @@ namespace apCidadesMarte
             NoArvore<Dado> temp = no.Dir;
             no.Dir = temp.Esq;
             temp.Esq = no;
-            no.Altura = Math.Max(getAltura(no.Esq), getAltura(no.Dir)) + 1;
-            temp.Altura = Math.Max(getAltura(temp.Dir), getAltura(no)) + 1;
+            no.Altura = Math.Max(GetAltura(no.Esq), GetAltura(no.Dir)) + 1;
+            temp.Altura = Math.Max(GetAltura(temp.Dir), GetAltura(no)) + 1;
             return temp;
         }
         private NoArvore<Dado> RotacaoDuplaComFilhoEsquerdo(NoArvore<Dado> no)

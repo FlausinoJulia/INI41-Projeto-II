@@ -30,14 +30,10 @@ namespace apCidadesMarte
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCidadesMarte));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tcCidadesMarte = new System.Windows.Forms.TabControl();
             this.tpCaminhos = new System.Windows.Forms.TabPage();
             this.ssMensagem = new System.Windows.Forms.StatusStrip();
-            this.sslCidades = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.sslCaminhos = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.sslMensagem = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbMapa = new System.Windows.Forms.PictureBox();
             this.udOpcoes = new System.Windows.Forms.ToolStrip();
@@ -83,8 +79,8 @@ namespace apCidadesMarte
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tpArvore = new System.Windows.Forms.TabPage();
-            this.pbArvore = new System.Windows.Forms.PictureBox();
             this.dlgAbrirCidades = new System.Windows.Forms.OpenFileDialog();
+            this.pnlArvore = new System.Windows.Forms.Panel();
             this.tcCidadesMarte.SuspendLayout();
             this.tpCaminhos.SuspendLayout();
             this.ssMensagem.SuspendLayout();
@@ -96,7 +92,6 @@ namespace apCidadesMarte
             ((System.ComponentModel.ISupportInitialize)(this.udY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udX)).BeginInit();
             this.tpArvore.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).BeginInit();
             this.SuspendLayout();
             // 
             // tcCidadesMarte
@@ -132,47 +127,18 @@ namespace apCidadesMarte
             // 
             this.ssMensagem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ssMensagem.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sslCidades,
-            this.toolStripStatusLabel1,
-            this.sslCaminhos,
-            this.toolStripStatusLabel2,
             this.sslMensagem});
             this.ssMensagem.Location = new System.Drawing.Point(3, 634);
             this.ssMensagem.Name = "ssMensagem";
             this.ssMensagem.Size = new System.Drawing.Size(1186, 22);
             this.ssMensagem.TabIndex = 13;
             this.ssMensagem.Text = "statusStrip1";
-            this.ssMensagem.Visible = false;
-            // 
-            // sslCidades
-            // 
-            this.sslCidades.Name = "sslCidades";
-            this.sslCidades.Size = new System.Drawing.Size(98, 17);
-            this.sslCidades.Text = "Cidade Registros:";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel1.Text = "|";
-            // 
-            // sslCaminhos
-            // 
-            this.sslCaminhos.Name = "sslCaminhos";
-            this.sslCaminhos.Size = new System.Drawing.Size(118, 17);
-            this.sslCaminhos.Text = "Caminhos Registros: ";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
-            this.toolStripStatusLabel2.Text = "|";
             // 
             // sslMensagem
             // 
             this.sslMensagem.Name = "sslMensagem";
-            this.sslMensagem.Size = new System.Drawing.Size(66, 17);
-            this.sslMensagem.Text = "Mensagem";
+            this.sslMensagem.Size = new System.Drawing.Size(69, 17);
+            this.sslMensagem.Text = "Mensagem:";
             // 
             // pbMapa
             // 
@@ -268,6 +234,7 @@ namespace apCidadesMarte
             this.btnExibir.Size = new System.Drawing.Size(40, 39);
             this.btnExibir.Text = "Exibir";
             this.btnExibir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExibir.Click += new System.EventHandler(this.btnExibir_Click);
             // 
             // toolStripSeparator3
             // 
@@ -504,8 +471,8 @@ namespace apCidadesMarte
             this.Custo});
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 206);
             this.dgvCaminhos.Name = "dgvCaminhos";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCaminhos.Size = new System.Drawing.Size(406, 290);
             this.dgvCaminhos.TabIndex = 11;
             // 
@@ -563,6 +530,7 @@ namespace apCidadesMarte
             0,
             0});
             this.udY.Name = "udY";
+            this.udY.ReadOnly = true;
             this.udY.Size = new System.Drawing.Size(120, 26);
             this.udY.TabIndex = 15;
             // 
@@ -582,14 +550,17 @@ namespace apCidadesMarte
             0,
             0});
             this.udX.Name = "udX";
+            this.udX.ReadOnly = true;
             this.udX.Size = new System.Drawing.Size(120, 26);
             this.udX.TabIndex = 14;
             // 
             // txtNome
             // 
+            this.txtNome.Enabled = false;
             this.txtNome.Location = new System.Drawing.Point(146, 28);
             this.txtNome.MaxLength = 15;
             this.txtNome.Name = "txtNome";
+            this.txtNome.ReadOnly = true;
             this.txtNome.Size = new System.Drawing.Size(158, 26);
             this.txtNome.TabIndex = 13;
             // 
@@ -623,28 +594,29 @@ namespace apCidadesMarte
             // tpArvore
             // 
             this.tpArvore.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.tpArvore.Controls.Add(this.pbArvore);
+            this.tpArvore.Controls.Add(this.pnlArvore);
             this.tpArvore.Location = new System.Drawing.Point(4, 29);
             this.tpArvore.Name = "tpArvore";
             this.tpArvore.Padding = new System.Windows.Forms.Padding(3);
             this.tpArvore.Size = new System.Drawing.Size(1192, 659);
             this.tpArvore.TabIndex = 1;
             this.tpArvore.Text = "Visualizar Cidades";
-            // 
-            // pbArvore
-            // 
-            this.pbArvore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbArvore.Location = new System.Drawing.Point(8, 6);
-            this.pbArvore.Name = "pbArvore";
-            this.pbArvore.Size = new System.Drawing.Size(1176, 647);
-            this.pbArvore.TabIndex = 0;
-            this.pbArvore.TabStop = false;
+            this.tpArvore.Enter += new System.EventHandler(this.tpArvore_Enter);
             // 
             // dlgAbrirCidades
             // 
             this.dlgAbrirCidades.FileName = "openFileDialog1";
+            // 
+            // pnlArvore
+            // 
+            this.pnlArvore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlArvore.Location = new System.Drawing.Point(6, 6);
+            this.pnlArvore.Name = "pnlArvore";
+            this.pnlArvore.Size = new System.Drawing.Size(1183, 650);
+            this.pnlArvore.TabIndex = 0;
+            this.pnlArvore.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlArvore_Paint);
             // 
             // frmCidadesMarte
             // 
@@ -676,7 +648,6 @@ namespace apCidadesMarte
             ((System.ComponentModel.ISupportInitialize)(this.udY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udX)).EndInit();
             this.tpArvore.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbArvore)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -694,10 +665,6 @@ namespace apCidadesMarte
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tpArvore;
         private System.Windows.Forms.StatusStrip ssMensagem;
-        private System.Windows.Forms.ToolStripStatusLabel sslCidades;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel sslCaminhos;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel sslMensagem;
         private System.Windows.Forms.PictureBox pbMapa;
         private System.Windows.Forms.ToolStrip udOpcoes;
@@ -731,12 +698,12 @@ namespace apCidadesMarte
         private System.Windows.Forms.DataGridViewTextBoxColumn Distancia;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tempo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Custo;
-        private System.Windows.Forms.PictureBox pbArvore;
         private System.Windows.Forms.OpenFileDialog dlgAbrirCidades;
         private System.Windows.Forms.TextBox txtOrigem;
         private System.Windows.Forms.Label lbOrigem;
         private System.Windows.Forms.ToolStripButton btnExibir;
         private System.Windows.Forms.ToolStripButton btnEditarCidade;
+        private System.Windows.Forms.Panel pnlArvore;
     }
 }
 

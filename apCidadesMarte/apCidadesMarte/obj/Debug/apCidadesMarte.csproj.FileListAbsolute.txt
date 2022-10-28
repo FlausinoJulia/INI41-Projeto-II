@@ -41,3 +41,13 @@ C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCida
 C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.CoreCompileInputs.cache
 C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.exe
 C:\Users\u21232\Documents\EDII\PROJETIN 2\INI41-Projeto-II\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.pdb
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\bin\Debug\apCidadesMarte.exe.config
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\bin\Debug\apCidadesMarte.exe
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\bin\Debug\apCidadesMarte.pdb
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.AssemblyReference.cache
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.frmCidadesMarte.resources
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.Properties.Resources.resources
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.GenerateResource.cache
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.csproj.CoreCompileInputs.cache
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.exe
+C:\Users\claud\OneDrive\Imagens\COTUCA\INFO\4° SEMESTRE\Estrutura de Dados II\Projetos\Projeto II - Arvores e Arquivos Bin\Repositorio\apCidadesMarte\apCidadesMarte\obj\Debug\apCidadesMarte.pdb
