@@ -306,35 +306,4 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>, IRegistro, new()
             ultimo.Prox = null;
         }
     }
-
-    public void LerArquivoDeRegistros(string nomeArquivo)
-    {
-        Dado dado = new Dado();
-        FileStream origem = new FileStream(nomeArquivo, FileMode.OpenOrCreate);
-        BinaryReader arquivo = new BinaryReader(origem);
-
-        for (int i = 0; i < arquivo.BaseStream.Length / dado.TamanhoRegistro; i++)
-        {
-            dado = new Dado();
-            dado.LerRegistro(arquivo, i);
-            InserirEmOrdem(dado);
-        }
-
-        origem.Close();
-    }
-
-    public void GravarArquivoDeRegistros(string nomeArquivo)
-    {
-        FileStream destino = new FileStream(nomeArquivo, FileMode.Create);
-        BinaryWriter arquivo = new BinaryWriter(destino);
-
-        atual = primeiro;
-        while(atual != null)
-        { 
-            atual.Info.GravarRegistro(arquivo);
-            atual = atual.Prox;
-        }
-
-        arquivo.Close();
-    }
 }

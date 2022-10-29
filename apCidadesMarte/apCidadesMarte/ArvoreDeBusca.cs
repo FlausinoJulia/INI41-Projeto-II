@@ -13,7 +13,7 @@ namespace apCidadesMarte
     }
 
     class ArvoreDeBusca<Dado>  // : IComparable<NoArvore<Dado>> 
-                                where Dado : IComparable<Dado>, IRegistro,
+                                where Dado : IComparable<Dado>, IRegistro, IRegistroNoDeArvore,
                                              new()  // indica que a classe específica terá um construtor vazio
     {
         NoArvore<Dado> raiz,
@@ -329,7 +329,7 @@ namespace apCidadesMarte
                 Thread.Sleep(100);
                 SolidBrush preenchimento = new SolidBrush(Color.MediumAquamarine);
                 g.FillEllipse(preenchimento, xf - 25, yf - 15, 42, 30);
-                g.DrawString(Convert.ToString(raiz.Info.ToString()),
+                g.DrawString(Convert.ToString(raiz.Info.ParaExibirNaArvore()),
                              new Font("Comic Sans", 10),
                              new SolidBrush(Color.Black), xf - 23, yf - 7);
             }

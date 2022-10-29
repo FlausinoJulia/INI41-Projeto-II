@@ -574,6 +574,7 @@ namespace apCidadesMarte
             this.Text = "Caminhos entre Cidades de Marte";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmCidadesMarte_FormClosing);
             this.Load += new System.EventHandler(this.frmCidadesMarte_Load);
+            this.Resize += new System.EventHandler(this.frmCidadesMarte_Resize);
             this.tcCidadesMarte.ResumeLayout(false);
             this.tpCaminhos.ResumeLayout(false);
             this.tpCaminhos.PerformLayout();

@@ -4,14 +4,14 @@ using System.Windows.Forms;
 
 namespace apCidadesMarte
 {
-    public class Cidade : IComparable<Cidade>, IRegistro
+    public class Cidade : IComparable<Cidade>, IRegistro, IRegistroNoDeArvore
     {
         private const byte tamanhoNome = 15;
         private string nome;
         private decimal x, y;
         public ListaSimples<Caminho> caminhos;
 
-        const int tamanhoRegistro = tamanhoNome     + // tamanho do nome
+        const int tamanhoRegistro = tamanhoNome + // tamanho do nome
                                     sizeof(decimal) + // tamanho da coordenada x
                                     sizeof(decimal);  // tamanho da coordenada y
 
@@ -25,8 +25,8 @@ namespace apCidadesMarte
         public Cidade(string nome, decimal x, decimal y, ListaSimples<Caminho> caminhos) // construtor parametrizado
         {
             this.Nome = nome;
-            this.X    = x;
-            this.Y    = y;
+            this.X = x;
+            this.Y = y;
             this.caminhos = caminhos;
         }
 
@@ -36,13 +36,13 @@ namespace apCidadesMarte
         }
 
         public int TamanhoRegistro => tamanhoRegistro;
-        public string Nome 
-        { 
+        public string Nome
+        {
             get => nome;
             // o nome deve ter exatamente 15 caracteres, portanto,
             // se o value possuir MENOS que 15 caracteres, completamos o nome com espaços em branco
             // se o value possuir MAIS  que 15 caracteres, nome recebe os 15 primeiros chars de value
-            set => nome = value.PadRight(tamanhoNome,' ').Substring(0,tamanhoNome);
+            set => nome = value.PadRight(tamanhoNome, ' ').Substring(0, tamanhoNome);
         }
         public decimal X { get => x; set => x = value; }
         public decimal Y { get => y; set => y = value; }
@@ -50,6 +50,11 @@ namespace apCidadesMarte
         public int CompareTo(Cidade outraCidade)
         {
             return nome.CompareTo(outraCidade.Nome);
+        }
+
+        public string ParaExibirNaArvore()
+        {
+            return Nome + "\n" + caminhos.QuantosNos.ToString();
         }
 
         public override string ToString()

@@ -117,6 +117,7 @@ namespace apCidadesMarte
                     // setamos tudo para a situacao navegando, deixando os campos desabilitados
                     // e habilitando os botões necessários do toolstrip
                     TelaDeNavegacaoCidades();
+                    pbMapa.Invalidate(); // desenhamos a nova cidade no mapa
                 }
             }
         }
@@ -177,8 +178,8 @@ namespace apCidadesMarte
                     Cidade cidade = new Cidade(txtNome.Text);
                     if (arvoreCidades.ApagarNo(cidade))
                     {
-                        pnlArvore.Invalidate();
                         TelaDeNavegacaoCidades(); // volta tudo ao normal
+                        pbMapa.Invalidate();      // desenhamos o mapa sem a cidade que foi excluida
                     }
                     else
                         MessageBox.Show("Essa cidade não existe!");
@@ -222,13 +223,14 @@ namespace apCidadesMarte
 
         private void pbMapa_Paint(object sender, PaintEventArgs e)
         {
-            listaCidades.PosicionarNoPrimeiro();
+            List<NoArvore<Cidade>> listaCidades = arvoreCidades.ListarArvore();
 
             Font fonte = new Font("Arial", 11);
 
-            while (listaCidades.DadoAtual() != null)
+
+            foreach(NoArvore<Cidade> noCidade in listaCidades)
             {
-                Cidade cidade = listaCidades.DadoAtual();
+                Cidade cidade = noCidade.Info;
 
                 int x = (int)(cidade.X * pbMapa.Width);
                 int y = (int)(cidade.Y * pbMapa.Height);
@@ -236,8 +238,6 @@ namespace apCidadesMarte
                 e.Graphics.DrawEllipse(Pens.Black, new Rectangle(x, y, 6, 6));
                 e.Graphics.FillEllipse(Brushes.Black, new Rectangle(x, y, 6, 6));
                 e.Graphics.DrawString(cidade.Nome, fonte, Brushes.Black, x - 20, y + 10);
-
-                listaCidades.AvancarPosicao();
             }
         }
 
@@ -341,6 +341,23 @@ namespace apCidadesMarte
 
                 if (nomeDoArquivoDeCaminhos != "" && nomeDoArquivoDeCaminhos != " " && nomeDoArquivoDeCaminhos != null)
                 {
+                    FileStream destino = new FileStream(nomeDoArquivoDeCaminhos, FileMode.Create);
+                    BinaryWriter arquivo = new BinaryWriter(destino);
+
+                    List<NoArvore<Cidade>> listaCidades = arvoreCidades.ListarArvore();
+
+                    foreach (NoArvore<Cidade> cidade in listaCidades)
+                    {
+                        ListaSimples<Caminho> caminhos = cidade.Info.caminhos;
+
+                        caminhos.IniciarPercursoSequencial();
+                        while (caminhos.PodePercorrer())
+                        {
+                            caminhos.Atual.Info.GravarRegistro(arquivo);
+                        }
+                    }
+
+                    arquivo.Close();
                     MessageBox.Show("As alterações no arquivo de caminhos foram salvas!");
                 }
                 else
@@ -361,21 +378,7 @@ namespace apCidadesMarte
                     FileStream destino = new FileStream(nomeDoArquivoDeCaminhos, FileMode.Create);
                     BinaryWriter arquivo = new BinaryWriter(destino);
 
-                    List<NoArvore<Cidade>> listaCidades = new List<NoArvore<Cidade>>();
-                    Queue<NoArvore<Cidade>> filaCidades = new Queue<NoArvore<Cidade>>();
-                    NoArvore <Cidade> no = arvoreCidades.Raiz;
-                    while (no != null)
-                    {
-                        if (no.Esq != null)
-                            filaCidades.Enqueue(no.Esq);
-                        if (no.Dir != null)
-                            filaCidades.Enqueue(no.Dir);
-                        listaCidades.Add(no);
-                        if (filaCidades.Count == 0)
-                            no = null;
-                        else
-                            no = filaCidades.Dequeue();
-                    }
+                    List<NoArvore<Cidade>> listaCidades = arvoreCidades.ListarArvore();
 
                     foreach (NoArvore<Cidade> cidade in listaCidades)
                     {
@@ -531,11 +534,17 @@ namespace apCidadesMarte
                     }
 
                     // volta tudo ao normal
-                    TelaDeNavegacaoCidades(); 
+                    TelaDeNavegacaoCidades();
                 }
                 else
                     MessageBox.Show("Digite o nome da cidade que deseja alterar!");
             }
+        }
+
+        private void frmCidadesMarte_Resize(object sender, EventArgs e)
+        {
+            // quando alteramos as dimensões do formulário, desenhamos as cidades no mapa novamente
+            pbMapa.Invalidate();
         }
     }
 }
