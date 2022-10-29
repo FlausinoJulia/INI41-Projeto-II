@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-interface IRegistro
+public interface IRegistro
 {
     // lê, do arquivo binário passado como parâmetro, o registro especificado (qualRegistro)
     void LerRegistro(BinaryReader arquivo, long qualRegistro);

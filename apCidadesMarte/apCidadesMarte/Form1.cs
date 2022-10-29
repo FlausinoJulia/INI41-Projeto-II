@@ -6,11 +6,11 @@ namespace apCidadesMarte
 {
     public partial class frmCidadesMarte : Form
     {
-        // arvores de caminho de de cidades
-        ArvoreDeBusca<Cidade>  arvoreCidades;
-        ArvoreDeBusca<Caminho> arvoreCaminhos;
-        // variáveis relacionadas aos arquivos binários
-        string nomeDoArquivo;
+        ArvoreDeBusca<Cidade> arvoreCidades; // arvore de cidades
+        ListaSimples<Caminho> listaCaminhos; // lista simples de caminhos
+
+        string nomeDoArquivoDeCidades;  // nome do arquivo binario de cidades
+        string nomeDoArquivoDeCaminhos; // nome do arquivo binario de caminhos
 
         public frmCidadesMarte()
         {
@@ -21,18 +21,31 @@ namespace apCidadesMarte
         {
             if (dlgAbrirCidades.ShowDialog() == DialogResult.OK)
             {
-                nomeDoArquivo = dlgAbrirCidades.FileName;
+                nomeDoArquivoDeCidades = dlgAbrirCidades.FileName;
                 arvoreCidades = new ArvoreDeBusca<Cidade>();
 
                 arvoreCidades.OndeExibir = pnlArvore;
-                arvoreCidades.LerArquivoDeRegistros(nomeDoArquivo);
+                arvoreCidades.LerArquivoDeRegistros(nomeDoArquivoDeCidades);
                 pnlArvore.Invalidate();  // disparar o evento Paint, que desenha a árvore
 
                 MessageBox.Show(arvoreCidades.QtosNos() + "");
 
                 /* while (arvoreCidades.Atual.Info != null)
                      MessageBox.Show(arvoreCidades.Atual.Info);*/
-            }
+
+                TelaDeNavegacaoCidades();
+
+                if (dlgAbrirCaminhos.ShowDialog() == DialogResult.OK)
+                {
+                    nomeDoArquivoDeCaminhos = dlgAbrirCaminhos.FileName;
+
+                    listaCaminhos = new ListaSimples<Caminho>();
+
+                    listaCaminhos.LerArquivoDeRegistros(nomeDoArquivoDeCidades);
+
+                    MessageBox.Show(listaCaminhos.QuantosNos + "");
+                }
+            }            
         }
 
         private void btnIncluirCidade_Click(object sender, EventArgs e)
@@ -54,7 +67,7 @@ namespace apCidadesMarte
                 btnCancelar.Enabled = true;
                 btnExcluirCidade.Enabled = false;
                 btnEditarCidade.Enabled = false;
-                btnExibir.Enabled = false;
+                btnExibirCidade.Enabled = false;
                 btnSalvar.Enabled = false;
 
                 // limpando os campos para o usuário digitar os dados desejados
@@ -107,7 +120,7 @@ namespace apCidadesMarte
             btnIncluirCidade.Enabled = true;
             btnExcluirCidade.Enabled = true;
             btnEditarCidade.Enabled = true;
-            btnExibir.Enabled = true;
+            btnExibirCidade.Enabled = true;
             btnSalvar.Enabled = true;
             btnSair.Enabled = true;
 
@@ -131,7 +144,7 @@ namespace apCidadesMarte
                 btnCancelar.Enabled = true;
                 btnExcluirCidade.Enabled = true;
                 btnEditarCidade.Enabled = false;
-                btnExibir.Enabled = false;
+                btnExibirCidade.Enabled = false;
                 btnSalvar.Enabled = false;
 
                 // pedimos para o usuário digitar o nome da cidade que ele quer excluir
@@ -161,7 +174,7 @@ namespace apCidadesMarte
             if (txtDestino.Text != null)
             {
                 var caminho = new Caminho(txtOrigem.Text, txtDestino.Text);
-                if (arvoreCaminhos.ApagarNo(caminho))
+                if (listaCaminhos.RemoverDado(caminho))
                     pnlArvore.Invalidate();
                 else
                     MessageBox.Show("Matrícula não existente!");
@@ -208,7 +221,30 @@ namespace apCidadesMarte
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
+            if (!listaCaminhos.EstaVazia)
+            {
+                if (txtOrigem.Text != "" && txtDestino.Text != "")
+                {
+                    Caminho caminhoProcurado = new Caminho(txtOrigem.Text, txtDestino.Text,
+                        Convert.ToInt32(udDistancia.Value), Convert.ToInt32(udTempo.Value), Convert.ToInt32(udCusto.Value));
 
+                    if (listaCaminhos.ExisteDado(caminhoProcurado))
+                    {
+                        Cidade cidadeOrigem = new Cidade(caminhoProcurado.CidOrigem);
+                        arvoreCidades.ExisteRegistro(cidadeOrigem);
+
+                        arvoreCidades.Atual.Info.caminhos.Atual.Info.Distancia = caminhoProcurado.Distancia;
+                        arvoreCidades.Atual.Info.caminhos.Atual.Info.Tempo     = caminhoProcurado.Tempo;
+                        arvoreCidades.Atual.Info.caminhos.Atual.Info.Custo     = caminhoProcurado.Custo;
+                    }
+                    else
+                        MessageBox.Show("Esse caminho não existe!");
+                }
+                else
+                    MessageBox.Show("Digite a origem e o destino para alterar caminho!");
+            }
+            else
+                MessageBox.Show("Não há caminhos para alterar!");
         }
 
         private void btnSair_Click(object sender, EventArgs e)
@@ -216,49 +252,103 @@ namespace apCidadesMarte
             Close();
         }
 
+        private void DesativarNavegacaoCidades()
+        {
+            txtNome.Enabled = false;
+            txtNome.ReadOnly = true;
+
+            udX.Enabled = false;
+            udX.ReadOnly = true;
+
+            udY.Enabled = false;
+            udY.ReadOnly = true;
+
+            btnEditarCidade.Enabled  = false;
+            btnIncluirCidade.Enabled = false;
+            btnExcluirCidade.Enabled = false;
+            btnExibirCidade.Enabled  = false;
+            btnSalvar.Enabled        = false;
+        }
+
         private void btnIncluirCaminho_Click(object sender, EventArgs e)
         {
-            if (txtOrigem.Text != "" && txtOrigem.Text != "" &&
-                txtDistancia.Text != "" && txtTempo.Text != "" && txtCusto.Text != "")
+            if (listaCaminhos.SituacaoAtual != Situacao.incluindo)
             {
-                try
-                {
-                    string origem, destino;
-                    origem = txtOrigem.Text;
-                    destino = txtDestino.Text;
+                listaCaminhos.SituacaoAtual = Situacao.incluindo;
 
-                    Cidade cidadeOrigemProcurada = new Cidade(origem);
-                    Cidade cidadeDestinoProcurada = new Cidade(destino);
+                // desativando as opções de alterações da arvore de cidades
+                DesativarNavegacaoCidades();
 
-                    if (arvoreCidades.ExisteRegistro(cidadeOrigemProcurada) && 
-                        arvoreCidades.ExisteRegistro(cidadeDestinoProcurada))
-                    {
-                        int distancia, tempo, custo;
-                        distancia = int.Parse(txtDistancia.Text);
-                        tempo = int.Parse(txtTempo.Text);
-                        custo = int.Parse(txtCusto.Text);
+                // habilitando os campos para que o user informe os dados do caminho
+                txtOrigem.ReadOnly = false;
+                txtOrigem.Enabled = true;
+                txtDestino.ReadOnly = false;
+                txtDestino.Enabled = true;
+                udDistancia.Enabled = true;
+                udDistancia.ReadOnly = false;
+                udCusto.Enabled = true;
+                udCusto.ReadOnly = false;
+                udTempo.Enabled = true;
+                udTempo.ReadOnly = false;
 
-                        Caminho caminho = new Caminho(origem, destino, distancia, tempo, custo);
-                        arvoreCaminhos.InserirBalanceado(caminho);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Esse caminho já está registrado!");
-                }
+                // setando os botões
+                btnIncluirCaminho.Enabled = true;
+                btnExcluirCaminho.Enabled = false;
+                btnAlterar.Enabled = false;
+
+                // limpando os campos para o usuário digitar os dados desejados
+                txtOrigem.Text  = "";
+                txtDestino.Text = "";
+                udCusto.Value = 0;
+                udDistancia.Value = 0;
+                udDistancia.Value = 0;
+
+                sslMensagem.Text = "Digite os dados do caminho e clique em incluir.";
             }
             else
             {
-                MessageBox.Show("Preencha todos os campos para incluir o caminho!");
-            }
-            
+                if (txtOrigem.Text != "" && txtOrigem.Text != "")
+                {
+                    try
+                    {
+                        string origem, destino;
+                        origem = txtOrigem.Text;
+                        destino = txtDestino.Text;
+
+                        Cidade cidadeOrigemProcurada = new Cidade(origem);
+                        Cidade cidadeDestinoProcurada = new Cidade(destino);
+
+                        if (arvoreCidades.ExisteRegistro(cidadeDestinoProcurada) &&
+                            arvoreCidades.ExisteRegistro(cidadeOrigemProcurada))
+                        {
+                            int distancia, tempo, custo;
+                            distancia = Convert.ToInt32(udDistancia.Value);
+                            tempo = Convert.ToInt32(udTempo.Value);
+                            custo = Convert.ToInt32(udCusto.Value);
+
+                            Caminho caminho = new Caminho(origem, destino, distancia, tempo, custo);
+                            listaCaminhos.InserirEmOrdem(caminho);
+
+                            arvoreCidades.Atual.Info.caminhos.InserirEmOrdem(caminho);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Esse caminho já está registrado!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Preencha todos os campos para incluir o caminho!");
+                }
+            }            
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            if (nomeDoArquivo != "" && nomeDoArquivo != " " && nomeDoArquivo != null)
+            if (nomeDoArquivoDeCidades != "" && nomeDoArquivoDeCidades != " " && nomeDoArquivoDeCidades != null)
             {
-                arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivo);
+                arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivoDeCidades);
                 MessageBox.Show("As alterações foram salvas!");
             }
             else
@@ -268,8 +358,14 @@ namespace apCidadesMarte
 
         private void frmCidadesMarte_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (nomeDoArquivo != "" || nomeDoArquivo != " " || nomeDoArquivo != null)
-                arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivo);
+            if (nomeDoArquivoDeCidades != "" && nomeDoArquivoDeCidades != " " && nomeDoArquivoDeCidades != null)
+            {
+                arvoreCidades.GravarArquivoDeRegistros(nomeDoArquivoDeCidades);
+                if (nomeDoArquivoDeCaminhos != "" && nomeDoArquivoDeCaminhos != " " && nomeDoArquivoDeCaminhos != null)
+                {
+                    listaCaminhos.GravarArquivoDeRegistros(nomeDoArquivoDeCaminhos);
+                }
+            }
         }
 
         private void tpArvore_Enter(object sender, EventArgs e)
@@ -295,7 +391,7 @@ namespace apCidadesMarte
                 btnCancelar.Enabled = true;
                 btnExcluirCidade.Enabled = false;
                 btnEditarCidade.Enabled = false;
-                btnExibir.Enabled = true;
+                btnExibirCidade.Enabled = true;
                 btnSalvar.Enabled = false;
 
                 // pedimos para o usuário digitar o nome da cidade que ele quer consultar
@@ -336,6 +432,12 @@ namespace apCidadesMarte
                 arvoreCidades.DesenharArvore(true, arvoreCidades.Raiz, (int)pnlArvore.Width / 2, 0,
                   Math.PI / 2, Math.PI / 2.5, 300, g);
             }
+        }
+
+        private void btnEditarCidade_Click(object sender, EventArgs e)
+        {
+
+
         }
     }
 }

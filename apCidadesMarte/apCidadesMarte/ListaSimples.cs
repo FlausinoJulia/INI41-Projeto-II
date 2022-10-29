@@ -1,16 +1,21 @@
-﻿using System;
+﻿using apCidadesMarte;
+using System;
+using System.IO;
+using System.Text;
 
-public class ListaSimples<Dado> where Dado : IComparable<Dado>
+public class ListaSimples<Dado> where Dado : IComparable<Dado>, IRegistro, new()
 {
     private NoLista<Dado> primeiro, ultimo, atual, anterior;
     private int quantosNos;
     private bool primeiroAcessoDoPercurso;
+    Situacao situacaoAtual; // o que está sendo feito com os dados no momento atual
 
     public ListaSimples()
     {
         primeiro = ultimo = anterior = atual = null;
         quantosNos = 0;
         primeiroAcessoDoPercurso = false;
+        SituacaoAtual = Situacao.navegando;
     }
 
     public void PercorrerLista()
@@ -283,6 +288,8 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
         }
     }
 
+    public Situacao SituacaoAtual { get => situacaoAtual; set => situacaoAtual = value; }
+
     // inverter
     public void Inverter()
     {
@@ -302,5 +309,37 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>
             primeiro = um;
             ultimo.Prox = null;
         }
+    }
+
+    public void LerArquivoDeRegistros(string nomeArquivo)
+    {
+        Dado dado = new Dado();
+        FileStream origem = new FileStream(nomeArquivo, FileMode.OpenOrCreate);
+        BinaryReader arquivo = new BinaryReader(origem);
+
+        int quantosRegistros = (int) arquivo.BaseStream.Length / dado.TamanhoRegistro;
+        int i = 0;
+
+        for (int registroDesejado = 0; registroDesejado < quantosRegistros; registroDesejado++)
+        {
+            dado.LerRegistro(arquivo, registroDesejado);
+            InserirEmOrdem(dado);
+        }
+
+        origem.Close();
+    }
+
+    public void GravarArquivoDeRegistros(string nomeArquivo)
+    {
+        FileStream destino = new FileStream(nomeArquivo, FileMode.OpenOrCreate);
+        BinaryWriter arquivo = new BinaryWriter(destino);
+        
+        IniciarPercursoSequencial();
+        while (PodePercorrer())
+        {
+            atual.Info.GravarRegistro(arquivo);
+        }
+
+        arquivo.Close();
     }
 }

@@ -81,7 +81,7 @@ namespace apCidadesMarte
 
                 char[] destino = new char[tamanhoNome]; // cria vetor de char para armazenar o nome da cidDestino
                 for (int i = 0; i < tamanhoNome; i++)
-                    destino[i] = cidOrigem[i];          // copia os caracteres do campo cidDestino para o vetor de char
+                    destino[i] = cidDestino[i];          // copia os caracteres do campo cidDestino para o vetor de char
                 arquivo.Write(destino);                 // grava o vetor de char no arquivo (com tamanho 15)
 
                 arquivo.Write(Distancia);               // escreve os 4 bytes da distancia da origem ao destino no arquivo
