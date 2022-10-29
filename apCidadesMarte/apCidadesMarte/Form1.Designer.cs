@@ -282,29 +282,23 @@ namespace apCidadesMarte
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Caminhos";
-            this.groupBox2.Leave += new System.EventHandler(this.groupBox2_Leave);
             // 
             // udCusto
             // 
-            this.udCusto.Enabled = false;
             this.udCusto.Location = new System.Drawing.Point(92, 172);
             this.udCusto.Name = "udCusto";
-            this.udCusto.ReadOnly = true;
             this.udCusto.Size = new System.Drawing.Size(183, 26);
             this.udCusto.TabIndex = 30;
             // 
             // udTempo
             // 
-            this.udTempo.Enabled = false;
             this.udTempo.Location = new System.Drawing.Point(92, 137);
             this.udTempo.Name = "udTempo";
-            this.udTempo.ReadOnly = true;
             this.udTempo.Size = new System.Drawing.Size(183, 26);
             this.udTempo.TabIndex = 29;
             // 
             // udDistancia
             // 
-            this.udDistancia.Enabled = false;
             this.udDistancia.Location = new System.Drawing.Point(92, 102);
             this.udDistancia.Maximum = new decimal(new int[] {
             5000,
@@ -312,17 +306,14 @@ namespace apCidadesMarte
             0,
             0});
             this.udDistancia.Name = "udDistancia";
-            this.udDistancia.ReadOnly = true;
             this.udDistancia.Size = new System.Drawing.Size(183, 26);
             this.udDistancia.TabIndex = 28;
             // 
             // txtOrigem
             // 
-            this.txtOrigem.Enabled = false;
             this.txtOrigem.Location = new System.Drawing.Point(92, 28);
             this.txtOrigem.MaxLength = 15;
             this.txtOrigem.Name = "txtOrigem";
-            this.txtOrigem.ReadOnly = true;
             this.txtOrigem.Size = new System.Drawing.Size(183, 26);
             this.txtOrigem.TabIndex = 27;
             // 
@@ -337,7 +328,6 @@ namespace apCidadesMarte
             // 
             // btnExcluirCaminho
             // 
-            this.btnExcluirCaminho.Enabled = false;
             this.btnExcluirCaminho.Location = new System.Drawing.Point(281, 120);
             this.btnExcluirCaminho.Name = "btnExcluirCaminho";
             this.btnExcluirCaminho.Size = new System.Drawing.Size(131, 40);
@@ -348,7 +338,6 @@ namespace apCidadesMarte
             // 
             // btnAlterar
             // 
-            this.btnAlterar.Enabled = false;
             this.btnAlterar.Location = new System.Drawing.Point(281, 74);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(131, 40);
@@ -359,7 +348,6 @@ namespace apCidadesMarte
             // 
             // btnIncluirCaminho
             // 
-            this.btnIncluirCaminho.Enabled = false;
             this.btnIncluirCaminho.Location = new System.Drawing.Point(281, 28);
             this.btnIncluirCaminho.Name = "btnIncluirCaminho";
             this.btnIncluirCaminho.Size = new System.Drawing.Size(131, 40);
@@ -397,11 +385,9 @@ namespace apCidadesMarte
             // 
             // txtDestino
             // 
-            this.txtDestino.Enabled = false;
             this.txtDestino.Location = new System.Drawing.Point(92, 66);
             this.txtDestino.MaxLength = 15;
             this.txtDestino.Name = "txtDestino";
-            this.txtDestino.ReadOnly = true;
             this.txtDestino.Size = new System.Drawing.Size(183, 26);
             this.txtDestino.TabIndex = 16;
             // 
@@ -427,7 +413,6 @@ namespace apCidadesMarte
             this.Custo});
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 206);
             this.dgvCaminhos.Name = "dgvCaminhos";
-            this.dgvCaminhos.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCaminhos.Size = new System.Drawing.Size(406, 290);
@@ -437,26 +422,22 @@ namespace apCidadesMarte
             // 
             this.Destino.HeaderText = "Destino";
             this.Destino.Name = "Destino";
-            this.Destino.ReadOnly = true;
             // 
             // Distancia
             // 
             this.Distancia.HeaderText = "Distância";
             this.Distancia.Name = "Distancia";
-            this.Distancia.ReadOnly = true;
             // 
             // Tempo
             // 
             this.Tempo.HeaderText = "Tempo";
             this.Tempo.Name = "Tempo";
-            this.Tempo.ReadOnly = true;
             this.Tempo.Width = 65;
             // 
             // Custo
             // 
             this.Custo.HeaderText = "Custo";
             this.Custo.Name = "Custo";
-            this.Custo.ReadOnly = true;
             // 
             // groupBox1
             // 

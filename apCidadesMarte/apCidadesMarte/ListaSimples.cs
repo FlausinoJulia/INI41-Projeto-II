@@ -1,21 +1,18 @@
 ﻿using apCidadesMarte;
 using System;
 using System.IO;
-using System.Text;
 
 public class ListaSimples<Dado> where Dado : IComparable<Dado>, IRegistro, new()
 {
     private NoLista<Dado> primeiro, ultimo, atual, anterior;
     private int quantosNos;
     private bool primeiroAcessoDoPercurso;
-    Situacao situacaoAtual; // o que está sendo feito com os dados no momento atual
 
     public ListaSimples()
     {
         primeiro = ultimo = anterior = atual = null;
         quantosNos = 0;
         primeiroAcessoDoPercurso = false;
-        SituacaoAtual = Situacao.navegando;
     }
 
     public void PercorrerLista()
@@ -288,7 +285,6 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>, IRegistro, new()
         }
     }
 
-    public Situacao SituacaoAtual { get => situacaoAtual; set => situacaoAtual = value; }
 
     // inverter
     public void Inverter()

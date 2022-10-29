@@ -600,5 +600,31 @@ namespace apCidadesMarte
             no.Dir = RotacaoSimplesComFilhoEsquerdo(no.Dir);
             return RotacaoSimplesComFilhoDireito(no);
         }
+
+        public List<NoArvore<Dado>> ListarArvore()
+        {
+            return ListarArvore(Raiz);
+        }
+
+        private List<NoArvore<Dado>> ListarArvore(NoArvore<Dado> local)
+        {
+            List<NoArvore<Dado>> lista = new List<NoArvore<Dado>>();
+            Queue<NoArvore<Dado>> umaFila = new Queue<NoArvore<Dado>>();
+
+            while (local != null)
+            {
+                if (local.Esq != null)
+                    umaFila.Enqueue(local.Esq);
+                if (local.Dir != null)
+                    umaFila.Enqueue(local.Dir);
+                lista.Add(local);
+                if (umaFila.Count == 0)
+                    local = null;
+                else
+                    local = umaFila.Dequeue();
+            }
+
+            return lista;
+        }
     }
 }
