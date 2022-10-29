@@ -61,8 +61,8 @@ namespace apCidadesMarte
         public int Custo { get => custo; set => custo = value; }
 
         public int CompareTo(Caminho outroCaminho)
-        {
-            return cidOrigem.CompareTo(outroCaminho.CidOrigem) + cidDestino.CompareTo(outroCaminho.CidDestino);
+        { 
+            return this.ToString().CompareTo(outroCaminho.ToString());
         }
 
         public override string ToString()
@@ -111,7 +111,7 @@ namespace apCidadesMarte
                     nomeLido = "";
                     for (int i = 0; i < tamanhoNome; i++)    // montamos uma variável string com os caracteres do vetor destino
                         nomeLido += destino[i]; 
-                    CidOrigem = nomeLido;                    // armazenamos a string montada acima no campo cidDestino
+                    CidDestino = nomeLido;                   // armazenamos a string montada acima no campo cidDestino
 
                     Distancia = arquivo.ReadInt32(); // lê um int de 4 bytes
                     Tempo = arquivo.ReadInt32();     // lê um int de 4 bytes

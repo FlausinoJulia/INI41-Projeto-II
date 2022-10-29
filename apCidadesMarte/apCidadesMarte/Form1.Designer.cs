@@ -40,10 +40,10 @@ namespace apCidadesMarte
             this.btnExibirCidade = new System.Windows.Forms.ToolStripButton();
             this.btnEditarCidade = new System.Windows.Forms.ToolStripButton();
             this.btnIncluirCidade = new System.Windows.Forms.ToolStripButton();
+            this.btnExcluirCidade = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCancelar = new System.Windows.Forms.ToolStripButton();
             this.btnSalvar = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnExcluirCidade = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnSair = new System.Windows.Forms.ToolStripButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -204,6 +204,22 @@ namespace apCidadesMarte
             this.btnIncluirCidade.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnIncluirCidade.Click += new System.EventHandler(this.btnIncluirCidade_Click);
             // 
+            // btnExcluirCidade
+            // 
+            this.btnExcluirCidade.Enabled = false;
+            this.btnExcluirCidade.Image = ((System.Drawing.Image)(resources.GetObject("btnExcluirCidade.Image")));
+            this.btnExcluirCidade.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExcluirCidade.Name = "btnExcluirCidade";
+            this.btnExcluirCidade.Size = new System.Drawing.Size(46, 39);
+            this.btnExcluirCidade.Text = "Excluir";
+            this.btnExcluirCidade.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExcluirCidade.Click += new System.EventHandler(this.btnExcluirCidade_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 42);
+            // 
             // btnCancelar
             // 
             this.btnCancelar.Enabled = false;
@@ -225,22 +241,6 @@ namespace apCidadesMarte
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 42);
-            // 
-            // btnExcluirCidade
-            // 
-            this.btnExcluirCidade.Enabled = false;
-            this.btnExcluirCidade.Image = ((System.Drawing.Image)(resources.GetObject("btnExcluirCidade.Image")));
-            this.btnExcluirCidade.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnExcluirCidade.Name = "btnExcluirCidade";
-            this.btnExcluirCidade.Size = new System.Drawing.Size(46, 39);
-            this.btnExcluirCidade.Text = "Excluir";
-            this.btnExcluirCidade.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExcluirCidade.Click += new System.EventHandler(this.btnExcluirCidade_Click);
             // 
             // toolStripSeparator5
             // 
@@ -282,42 +282,48 @@ namespace apCidadesMarte
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Caminhos";
+            this.groupBox2.Leave += new System.EventHandler(this.groupBox2_Leave);
             // 
             // udCusto
             // 
             this.udCusto.Enabled = false;
-            this.udCusto.Location = new System.Drawing.Point(128, 172);
+            this.udCusto.Location = new System.Drawing.Point(92, 172);
             this.udCusto.Name = "udCusto";
             this.udCusto.ReadOnly = true;
-            this.udCusto.Size = new System.Drawing.Size(158, 26);
+            this.udCusto.Size = new System.Drawing.Size(183, 26);
             this.udCusto.TabIndex = 30;
             // 
             // udTempo
             // 
             this.udTempo.Enabled = false;
-            this.udTempo.Location = new System.Drawing.Point(128, 137);
+            this.udTempo.Location = new System.Drawing.Point(92, 137);
             this.udTempo.Name = "udTempo";
             this.udTempo.ReadOnly = true;
-            this.udTempo.Size = new System.Drawing.Size(158, 26);
+            this.udTempo.Size = new System.Drawing.Size(183, 26);
             this.udTempo.TabIndex = 29;
             // 
             // udDistancia
             // 
             this.udDistancia.Enabled = false;
-            this.udDistancia.Location = new System.Drawing.Point(128, 102);
+            this.udDistancia.Location = new System.Drawing.Point(92, 102);
+            this.udDistancia.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
             this.udDistancia.Name = "udDistancia";
             this.udDistancia.ReadOnly = true;
-            this.udDistancia.Size = new System.Drawing.Size(158, 26);
+            this.udDistancia.Size = new System.Drawing.Size(183, 26);
             this.udDistancia.TabIndex = 28;
             // 
             // txtOrigem
             // 
             this.txtOrigem.Enabled = false;
-            this.txtOrigem.Location = new System.Drawing.Point(128, 28);
+            this.txtOrigem.Location = new System.Drawing.Point(92, 28);
             this.txtOrigem.MaxLength = 15;
             this.txtOrigem.Name = "txtOrigem";
             this.txtOrigem.ReadOnly = true;
-            this.txtOrigem.Size = new System.Drawing.Size(158, 26);
+            this.txtOrigem.Size = new System.Drawing.Size(183, 26);
             this.txtOrigem.TabIndex = 27;
             // 
             // lbOrigem
@@ -331,9 +337,10 @@ namespace apCidadesMarte
             // 
             // btnExcluirCaminho
             // 
-            this.btnExcluirCaminho.Location = new System.Drawing.Point(298, 120);
+            this.btnExcluirCaminho.Enabled = false;
+            this.btnExcluirCaminho.Location = new System.Drawing.Point(281, 120);
             this.btnExcluirCaminho.Name = "btnExcluirCaminho";
-            this.btnExcluirCaminho.Size = new System.Drawing.Size(114, 40);
+            this.btnExcluirCaminho.Size = new System.Drawing.Size(131, 40);
             this.btnExcluirCaminho.TabIndex = 25;
             this.btnExcluirCaminho.Text = "Excluir";
             this.btnExcluirCaminho.UseVisualStyleBackColor = true;
@@ -341,9 +348,10 @@ namespace apCidadesMarte
             // 
             // btnAlterar
             // 
-            this.btnAlterar.Location = new System.Drawing.Point(298, 74);
+            this.btnAlterar.Enabled = false;
+            this.btnAlterar.Location = new System.Drawing.Point(281, 74);
             this.btnAlterar.Name = "btnAlterar";
-            this.btnAlterar.Size = new System.Drawing.Size(114, 40);
+            this.btnAlterar.Size = new System.Drawing.Size(131, 40);
             this.btnAlterar.TabIndex = 24;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
@@ -351,9 +359,10 @@ namespace apCidadesMarte
             // 
             // btnIncluirCaminho
             // 
-            this.btnIncluirCaminho.Location = new System.Drawing.Point(298, 28);
+            this.btnIncluirCaminho.Enabled = false;
+            this.btnIncluirCaminho.Location = new System.Drawing.Point(281, 28);
             this.btnIncluirCaminho.Name = "btnIncluirCaminho";
-            this.btnIncluirCaminho.Size = new System.Drawing.Size(114, 40);
+            this.btnIncluirCaminho.Size = new System.Drawing.Size(131, 40);
             this.btnIncluirCaminho.TabIndex = 23;
             this.btnIncluirCaminho.Text = "Incluir";
             this.btnIncluirCaminho.UseVisualStyleBackColor = true;
@@ -382,18 +391,18 @@ namespace apCidadesMarte
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(8, 104);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(114, 20);
+            this.label6.Size = new System.Drawing.Size(79, 20);
             this.label6.TabIndex = 17;
-            this.label6.Text = "Distância (km):";
+            this.label6.Text = "Distância:";
             // 
             // txtDestino
             // 
             this.txtDestino.Enabled = false;
-            this.txtDestino.Location = new System.Drawing.Point(128, 66);
+            this.txtDestino.Location = new System.Drawing.Point(92, 66);
             this.txtDestino.MaxLength = 15;
             this.txtDestino.Name = "txtDestino";
             this.txtDestino.ReadOnly = true;
-            this.txtDestino.Size = new System.Drawing.Size(158, 26);
+            this.txtDestino.Size = new System.Drawing.Size(183, 26);
             this.txtDestino.TabIndex = 16;
             // 
             // label5
@@ -418,6 +427,7 @@ namespace apCidadesMarte
             this.Custo});
             this.dgvCaminhos.Location = new System.Drawing.Point(6, 206);
             this.dgvCaminhos.Name = "dgvCaminhos";
+            this.dgvCaminhos.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dgvCaminhos.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCaminhos.Size = new System.Drawing.Size(406, 290);

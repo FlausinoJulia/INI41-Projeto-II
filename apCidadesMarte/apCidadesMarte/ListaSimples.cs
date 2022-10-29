@@ -317,12 +317,10 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>, IRegistro, new()
         FileStream origem = new FileStream(nomeArquivo, FileMode.OpenOrCreate);
         BinaryReader arquivo = new BinaryReader(origem);
 
-        int quantosRegistros = (int) arquivo.BaseStream.Length / dado.TamanhoRegistro;
-        int i = 0;
-
-        for (int registroDesejado = 0; registroDesejado < quantosRegistros; registroDesejado++)
+        for (int i = 0; i < arquivo.BaseStream.Length / dado.TamanhoRegistro; i++)
         {
-            dado.LerRegistro(arquivo, registroDesejado);
+            dado = new Dado();
+            dado.LerRegistro(arquivo, i);
             InserirEmOrdem(dado);
         }
 
@@ -331,13 +329,14 @@ public class ListaSimples<Dado> where Dado : IComparable<Dado>, IRegistro, new()
 
     public void GravarArquivoDeRegistros(string nomeArquivo)
     {
-        FileStream destino = new FileStream(nomeArquivo, FileMode.OpenOrCreate);
+        FileStream destino = new FileStream(nomeArquivo, FileMode.Create);
         BinaryWriter arquivo = new BinaryWriter(destino);
-        
-        IniciarPercursoSequencial();
-        while (PodePercorrer())
-        {
+
+        atual = primeiro;
+        while(atual != null)
+        { 
             atual.Info.GravarRegistro(arquivo);
+            atual = atual.Prox;
         }
 
         arquivo.Close();
